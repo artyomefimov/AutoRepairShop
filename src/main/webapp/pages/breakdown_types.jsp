@@ -14,13 +14,21 @@
 <body>
 <table>
     <tr>
-        <th>ID</th>
+        <th>INN</th>
         <th>Name</th>
+        <th>Address</th>
+        <th>Open hours</th>
+        <th>Close hours</th>
+        <th>Owner name</th>
     </tr>
-<c:forEach items="${list}" var="type">
+<c:forEach items="${list}" var="workshop">
     <tr>
-        <td>${type.id}</td>
-        <td>${type.name}</td>
+        <td>${workshop.inn}</td>
+        <td>${workshop.name}</td>
+        <td>${workshop.address}</td>
+        <td>${workshop.openHours}</td>
+        <td>${workshop.closeHours}</td>
+        <td>${workshop.ownerName}</td>
     </tr>
 </c:forEach>
 </table>

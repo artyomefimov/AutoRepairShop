@@ -1,29 +1,38 @@
 package com.artyomefimov.controllers;
 
-import com.artyomefimov.database.model.BreakdownType;
+import com.artyomefimov.Constants;
+import com.artyomefimov.database.DatabaseException;
+import com.artyomefimov.database.dao.AbstractDao;
+import com.artyomefimov.database.model.Workshop;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.artyomefimov.repositories.BreakdownTypeRepository;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    private BreakdownTypeRepository breakdownTypeRepository;
+    private AbstractDao<Workshop> workshopDao;
 
     @Autowired
-    public LoginController(BreakdownTypeRepository breakdownTypeRepository) {
-        this.breakdownTypeRepository = breakdownTypeRepository;
+    public LoginController(
+            @Qualifier(Constants.WORKSHOP_DAO) AbstractDao<Workshop> workshopDao) {
+        this.workshopDao = workshopDao;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String loginPage(Model model) {
-        List<BreakdownType> breakdownTypeList = breakdownTypeRepository.getAll();
-        model.addAttribute("list", breakdownTypeList);
-        return "breakdown_types";
+        try {
+            List<Workshop> workshopList = workshopDao.getAll(Workshop.class);
+            model.addAttribute("list", workshopList);
+            return "breakdown_types";
+        } catch (DatabaseException e) { // todo proper exception handling
+            e.printStackTrace();
+            return "error";
+        }
     }
 }
