@@ -5,7 +5,7 @@
 1. Spring Boot 2.1.7
 2. Spring MVC
 3. Spring Security
-4. Hibernate
+4. Hibernate 5.4.2
 
 СУБД: 
 PostgreSQL
