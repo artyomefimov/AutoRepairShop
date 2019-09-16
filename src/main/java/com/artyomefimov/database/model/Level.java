@@ -3,8 +3,8 @@ package com.artyomefimov.database.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "breakdown_type")
-public class BreakdownType {
+@Table(name = "level")
+public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", schema = "public", allocationSize = 1)
@@ -14,10 +14,10 @@ public class BreakdownType {
     @Column(name = "name")
     private String name;
 
-    public BreakdownType() {
+    public Level() {
     }
 
-    public BreakdownType(String name) {
+    public Level(String name) {
         this.name = name;
     }
 

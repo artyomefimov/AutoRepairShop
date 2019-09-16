@@ -2,6 +2,8 @@ package com.artyomefimov.database.model;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "workshop")
@@ -26,6 +28,12 @@ public class Workshop {
 
     @Column(name = "owner_name")
     private String ownerName;
+
+    @OneToMany(mappedBy = "masterPassportNum", cascade = CascadeType.REMOVE)
+    private Set<Master> masters = new HashSet<>();
+
+    @OneToMany(mappedBy = "customerPassportNum", cascade = CascadeType.REMOVE)
+    private Set<Customer> customers = new HashSet<>();
 
     public Workshop() {}
 
@@ -83,6 +91,22 @@ public class Workshop {
 
     public void setOwnerName(String owner_name) {
         this.ownerName = owner_name.trim();
+    }
+
+    public Set<Master> getMasters() {
+        return masters;
+    }
+
+    public void setMasters(Set<Master> masters) {
+        this.masters = masters;
+    }
+
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
     }
 
     @Override
