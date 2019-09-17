@@ -1,4 +1,4 @@
-package com.artyomefimov.config;
+package com.artyomefimov.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

@@ -1,18 +1,21 @@
-package com.artyomefimov.controllers;
+package com.artyomefimov.web.controller;
 
-import com.artyomefimov.database.dao.WorkshopRepository;
 import com.artyomefimov.database.model.Workshop;
+import com.artyomefimov.database.repository.WorkshopRepository;
+import com.artyomefimov.web.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping(WebConstants.LOGIN_PAGE)
 public class LoginController {
+    private static final String WORKSHOP_LIST = "workshop_list";
+
     private WorkshopRepository workshopRepository;
 
     @Autowired
@@ -20,10 +23,10 @@ public class LoginController {
         this.workshopRepository = workshopRepository;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String loginPage(Model model) {
         List<Workshop> workshopList = workshopRepository.findAll();
-        model.addAttribute("list", workshopList);
-        return "breakdown_types";
+        model.addAttribute(WORKSHOP_LIST, workshopList);
+        return WebConstants.WORKSHOPS_PAGE;
     }
 }

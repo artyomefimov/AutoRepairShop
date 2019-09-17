@@ -21,7 +21,7 @@
         <th>Close hours</th>
         <th>Owner name</th>
     </tr>
-<c:forEach items="${list}" var="workshop">
+<c:forEach items="${workshop_list}" var="workshop">
     <tr>
         <td>${workshop.inn}</td>
         <td>${workshop.name}</td>

@@ -1,6 +1,8 @@
 package com.artyomefimov.database.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "level")
@@ -14,11 +16,15 @@ public class Level {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
+    private Set<Master> masters = new HashSet<>();
+
     public Level() {
     }
 
-    public Level(String name) {
+    public Level(String name, Set<Master> masters) {
         this.name = name;
+        this.masters = masters;
     }
 
     public Long getId() {
@@ -35,5 +41,13 @@ public class Level {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Master> getMasters() {
+        return masters;
+    }
+
+    public void setMasters(Set<Master> masters) {
+        this.masters = masters;
     }
 }

@@ -19,8 +19,9 @@ public class Master {
     @Column(name = "phone_num")
     private String phone;
 
-    @Column(name = "level")
-    private int level;
+    @ManyToOne
+    @JoinColumn(name = "id", nullable = false)
+    private Level level;
 
     @ManyToOne
     @JoinColumn(name = "inn", nullable = false)
@@ -32,7 +33,7 @@ public class Master {
     public Master() {
     }
 
-    public Master(Long masterPassportNum, String name, int level, String phone, Workshop workshop) {
+    public Master(Long masterPassportNum, String name, Level level, String phone, Workshop workshop) {
         this.masterPassportNum = masterPassportNum;
         this.name = name;
         this.level = level;
@@ -56,11 +57,11 @@ public class Master {
         this.name = name;
     }
 
-    public int getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 

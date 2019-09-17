@@ -9,7 +9,7 @@ create table if not exists level
 
 alter table level owner to postgres;
 
--- WORKSHOP
+-- WORKSHOPS
 create table if not exists workshop
 (
   workshop bigint not null
