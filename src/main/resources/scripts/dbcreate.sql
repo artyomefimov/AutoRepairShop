@@ -1,3 +1,22 @@
+-- USER
+create table if not exists "user"
+(
+  id bigint not null
+    constraint user_pk
+      primary key,
+  login varchar(60) not null,
+  password varchar(60) not null,
+  role integer not null
+);
+
+alter table "user" owner to postgres;
+
+create unique index user_login_uindex
+  on "user" (login);
+
+create unique index user_password_uindex
+  on "user" (password);
+
 -- LEVEL
 create table if not exists level
 (
