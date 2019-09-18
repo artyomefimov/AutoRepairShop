@@ -1,53 +1,54 @@
 package com.artyomefimov.web.controller;
 
 import com.artyomefimov.database.model.Customer;
-import com.artyomefimov.database.repository.CarRepository;
 import com.artyomefimov.database.repository.CustomerRepository;
-import com.artyomefimov.database.repository.WorkshopRepository;
-import com.artyomefimov.web.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
-@Controller
-@RequestMapping(WebConstants.CUSTOMERS_PAGE)
+@RestController
 public class CustomerController {
     private CustomerRepository customerRepository;
-    private CarRepository carRepository;
-    private WorkshopRepository workshopRepository;
 
     @Autowired
-    public CustomerController(CustomerRepository customerRepository,
-                              CarRepository carRepository,
-                              WorkshopRepository workshopRepository) {
+    public CustomerController(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.carRepository = carRepository;
-        this.workshopRepository = workshopRepository;
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/workshops/{inn}/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Customer>> getCustomersByWorkshopInn(@PathVariable Long inn) {
+        return new ResponseEntity<>(
+                customerRepository.findAllByWorkshop_Inn(inn),
+                HttpStatus.OK);
+    }
+
+    @PostMapping(
+            value = "**/customers",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody
-    Customer createCustomer(@RequestBody @Valid Customer customer) {
-        return customerRepository.save(customer);
+    public ResponseEntity<Customer> createCustomer(@RequestBody @Valid Customer customer) {
+        return new ResponseEntity<>(
+                customerRepository.save(customer),
+                HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{passportNum}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-    Customer updateCustomer(@PathVariable Long passportNum,
-                            @RequestBody @Valid Customer customer) {
-        return customerRepository.save(customer);
+    @PutMapping(value = "**/customers/update/{passportNum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long passportNum,
+                                                   @RequestBody @Valid Customer customer) {
+        return new ResponseEntity<>(
+                customerRepository.save(customer),
+                HttpStatus.OK);
     }
 
-    @GetMapping(value = "/update/{passportNum}")
+    @GetMapping(value = "**/customers/update/{passportNum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Customer> getCustomer(@PathVariable Long passportNum) {
         Optional<Customer> customer = customerRepository.findById(passportNum);
         return customer
@@ -55,30 +56,13 @@ public class CustomerController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "/{passportNum}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCustomer(@PathVariable Long passportNum) {
+    @DeleteMapping(value = "**/customers/{passportNum}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long passportNum) {
         try {
             customerRepository.deleteById(passportNum);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    @GetMapping(value = "/{passportNum}/cars")
-    public String getCarsByCustomerPassportNum(@PathVariable Long passportNum,
-                                               Model model) {
-        model.addAttribute(
-                WebConstants.CARS_ATTRIBUTE,
-                carRepository.findAllByCustomer_CustomerPassportNum(passportNum));
-        return WebConstants.CARS_PAGE;
-    }
-
-    @GetMapping(value = "/workshops")
-    public String returnToWorkshopsPage(Model model) {
-        model.addAttribute(
-                WebConstants.WORKSHOPS_ATTRIBUTE,
-                workshopRepository.findAll());
-        return WebConstants.WORKSHOPS_PAGE;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
