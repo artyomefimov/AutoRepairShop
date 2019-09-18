@@ -8,7 +8,9 @@ public interface WebConstants {
     String MASTERS_PAGE = "masters";
     String WORKSHOPS_PAGE = "workshops";
 
-    String MASTERS_ATTRIBUTE = "masters";
-    String CUSTOMERS_ATTRIBUTE = "customers";
-    String CARS_ATTRIBUTE = "cars";
+    String CARS_ATTRIBUTE = "cars_attr";
+    String LEVELS_ATTRIBUTE = "levels_attr";
+    String CUSTOMERS_ATTRIBUTE = "customers_attr";
+    String MASTERS_ATTRIBUTE = "masters_attr";
+    String WORKSHOPS_ATTRIBUTE = "workshop_attr";
 }
