@@ -46,7 +46,7 @@ public class WorkshopControllerTest extends AbstractTest {
 
         mockMvc.perform(
                 post(
-                        "/workshops")
+                        "/workshops/workshop")
                         .content(jsonWorkshop)
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andDo(print())
@@ -62,7 +62,7 @@ public class WorkshopControllerTest extends AbstractTest {
 
         mockMvc.perform(
                 put(
-                        "/workshops/123")
+                        "/workshops/workshop/123")
                         .content(jsonWorkshop)
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andDo(print())
@@ -78,7 +78,7 @@ public class WorkshopControllerTest extends AbstractTest {
         doReturn(workshopById).when(workshopRepository).findById(eq(Long.valueOf(123L)));
 
         mockMvc.perform(
-                get("/workshops/update/123"))
+                get("/workshops/workshop/123"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -88,7 +88,7 @@ public class WorkshopControllerTest extends AbstractTest {
     @Test
     public void testDeletingWorkshopById() throws Exception {
         mockMvc.perform(
-                delete("/workshops/123"))
+                delete("/workshops/workshop/123"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

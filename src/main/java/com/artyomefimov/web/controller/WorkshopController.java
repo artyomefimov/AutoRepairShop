@@ -28,20 +28,20 @@ public class WorkshopController {
     }
 
     @PostMapping(
-            value = "/workshops",
+            value = "/workshops/workshop",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Workshop> createWorkshop(@RequestBody @Valid Workshop workshop) {
         return new ResponseEntity<>(workshopRepository.save(workshop), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/workshops/{inn}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/workshops/workshop/{inn}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Workshop> updateWorkshop(@PathVariable Long inn,
                                                    @RequestBody @Valid Workshop workshop) {
         return new ResponseEntity<>(workshopRepository.save(workshop), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/workshops/update/{inn}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/workshops/workshop/{inn}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Workshop> getWorkshop(@PathVariable Long inn) {
         Optional<Workshop> workshop = workshopRepository.findById(inn);
         return workshop.
@@ -49,7 +49,7 @@ public class WorkshopController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "/workshops/{inn}")
+    @DeleteMapping(value = "/workshops/workshop/{inn}")
     public ResponseEntity<Void> deleteWorkshop(@PathVariable Long inn) {
         try {
             workshopRepository.deleteById(inn);
