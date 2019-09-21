@@ -30,7 +30,7 @@ public class Customer {
     @JoinColumn(name = "inn", nullable = false)
     private Workshop workshop;
 
-    @OneToMany(mappedBy = "carNumber", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "carId", cascade = CascadeType.REMOVE)
     private Set<Car> cars = new HashSet<>();
 
     public Customer() {

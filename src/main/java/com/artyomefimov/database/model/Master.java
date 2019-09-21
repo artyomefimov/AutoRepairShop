@@ -27,17 +27,16 @@ public class Master {
     @JoinColumn(name = "inn", nullable = false)
     private Workshop workshop;
 
-    @OneToMany(mappedBy = "carNumber", cascade = CascadeType.ALL) // todo rethink
+    @OneToMany(mappedBy = "carId", cascade = CascadeType.ALL) // todo rethink
     private Set<Car> cars = new HashSet<>();
 
     public Master() {
     }
 
-    public Master(Long masterPassportNum, String name, Level level, String phone, Workshop workshop) {
-        this.masterPassportNum = masterPassportNum;
+    public Master(String name, String phone, Level level, Workshop workshop) {
         this.name = name;
-        this.level = level;
         this.phone = phone;
+        this.level = level;
         this.workshop = workshop;
     }
 

@@ -22,14 +22,14 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-    @GetMapping(value = "**/customers/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "**/customer/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Car>> getCarsByCustomerPassportNum(@PathVariable Long passportNum) {
         return new ResponseEntity<>(
                 carRepository.findAllByCustomer_CustomerPassportNum(passportNum),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/masters/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "**/master/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Car>> getCarsByMasterPassportNum(@PathVariable Long passportNum) {
         return new ResponseEntity<>(
                 carRepository.findAllByMaster_MasterPassportNum(passportNum),
@@ -37,7 +37,7 @@ public class CarController {
     }
 
     @PostMapping(
-            value = "/cars",
+            value = "**/cars/car",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Car> createCar(@RequestBody @Valid Car car) {
@@ -46,26 +46,26 @@ public class CarController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/cars/update/{carNumber}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Car> updateCar(@PathVariable String carNumber,
+    @PutMapping(value = "**/cars/car/{carId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Car> updateCar(@PathVariable Long carId,
                                          @RequestBody @Valid Car car) {
         return new ResponseEntity<>(
                 carRepository.save(car),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "/cars/update/{carNumber}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Car> getCar(@PathVariable String carNumber) {
-        Optional<Car> car = carRepository.findById(carNumber);
+    @GetMapping(value = "**/cars/car/{carId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Car> getCar(@PathVariable Long carId) {
+        Optional<Car> car = carRepository.findById(carId);
         return car
                 .map(c -> new ResponseEntity<>(c, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "/cars/{carNumber}")
-    public ResponseEntity<Void> deleteCar(@PathVariable String carNumber) {
+    @DeleteMapping(value = "**/cars/car/{carId}")
+    public ResponseEntity<Void> deleteCar(@PathVariable Long carId) {
         try {
-            carRepository.deleteById(carNumber);
+            carRepository.deleteById(carId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }

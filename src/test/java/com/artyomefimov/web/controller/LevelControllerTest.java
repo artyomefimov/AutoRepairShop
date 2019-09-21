@@ -1,7 +1,7 @@
 package com.artyomefimov.web.controller;
 
-import com.artyomefimov.database.model.Workshop;
-import com.artyomefimov.database.repository.WorkshopRepository;
+import com.artyomefimov.database.model.Level;
+import com.artyomefimov.database.repository.LevelRepository;
 import org.junit.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -17,77 +17,77 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class WorkshopControllerTest extends AbstractTest {
+public class LevelControllerTest extends AbstractTest {
     @MockBean
-    private WorkshopRepository workshopRepository;
+    private LevelRepository levelRepository;
 
-    private String jsonListWorkshops;
-    private String jsonSingleWorkshop;
+    private String jsonListLevels;
+    private String jsonSingleLevel;
 
-    public WorkshopControllerTest() throws Exception {
-        this.jsonListWorkshops = objectMapper.writeValueAsString(workshopList);
-        this.jsonSingleWorkshop = objectMapper.writeValueAsString(workshopList.get(0));
+    public LevelControllerTest() throws Exception {
+        this.jsonListLevels = objectMapper.writeValueAsString(levelList);
+        this.jsonSingleLevel = objectMapper.writeValueAsString(levelList.get(0));
     }
 
     @Test
-    public void testReturningWorkshopList() throws Exception {
-        when(workshopRepository.findAll()).thenReturn(workshopList);
+    public void testReturningLevelList() throws Exception {
+        when(levelRepository.findAll()).thenReturn(levelList);
 
         mockMvc.perform(
-                get("/workshops"))
+                get("/levels"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(content().json(jsonListWorkshops));
+                .andExpect(content().json(jsonListLevels));
     }
 
     @Test
-    public void testCreatingWorkshop() throws Exception {
-        doReturn(workshopList.get(0)).when(workshopRepository).save(any(Workshop.class));
+    public void testCreatingLevel() throws Exception {
+        doReturn(levelList.get(0)).when(levelRepository).save(any(Level.class));
 
         mockMvc.perform(
                 post(
-                        "/workshops/workshop")
-                        .content(jsonSingleWorkshop)
+                        "/levels/level")
+                        .content(jsonSingleLevel)
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(content().json(jsonSingleWorkshop));
+                .andExpect(content().json(jsonSingleLevel));
     }
 
     @Test
-    public void testUpdatingWorkshop() throws Exception {
-        doReturn(workshopList.get(0)).when(workshopRepository).save(any(Workshop.class));
+    public void testUpdatingLevel() throws Exception {
+        doReturn(levelList.get(0)).when(levelRepository).save(any(Level.class));
 
         mockMvc.perform(
                 put(
-                        "/workshops/workshop/123")
-                        .content(jsonSingleWorkshop)
+                        "/levels/level/123")
+                        .content(jsonSingleLevel)
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(content().json(jsonSingleWorkshop));
+                .andExpect(content().json(jsonSingleLevel));
     }
 
     @Test
-    public void testGettingWorkshopById() throws Exception {
-        Optional<Workshop> workshopById = Optional.of(workshopList.get(0));
-        doReturn(workshopById).when(workshopRepository).findById(eq(Long.valueOf(123L)));
+    public void testGettingLevelById() throws Exception {
+        Optional<Level> levelById = Optional.of(levelList.get(0));
+        doReturn(levelById).when(levelRepository).findById(eq(Long.valueOf(123L)));
 
         mockMvc.perform(
-                get("/workshops/workshop/123"))
+                get("/levels/level/123"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(content().json(jsonSingleWorkshop));
+                .andExpect(content().json(jsonSingleLevel));
     }
 
     @Test
-    public void testDeletingWorkshopById() throws Exception {
+    public void testDeletingLevelById() throws Exception {
         mockMvc.perform(
-                delete("/workshops/workshop/123"))
+                delete("/levels/level/123"))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }

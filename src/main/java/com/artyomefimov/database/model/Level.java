@@ -22,9 +22,8 @@ public class Level {
     public Level() {
     }
 
-    public Level(String name, Set<Master> masters) {
+    public Level(String name) {
         this.name = name;
-        this.masters = masters;
     }
 
     public Long getId() {

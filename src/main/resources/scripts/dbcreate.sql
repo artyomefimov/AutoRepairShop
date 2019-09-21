@@ -89,9 +89,7 @@ create unique index customer_phone_num_uindex
 -- CAR
 create table if not exists car
 (
-  car_number varchar(10) not null
-    constraint car_pk
-      primary key,
+  car_number varchar(10) not null,
   mark varchar(60),
   model varchar(60),
   mileage integer,
@@ -101,7 +99,10 @@ create table if not exists car
   master_passport_num bigint
     constraint master_passport_num_fk
       references master,
-  crash_type varchar(60)
+  crash_type varchar(60),
+  car_id bigint not null
+    constraint car_pk
+      primary key
 );
 
 alter table car owner to postgres;

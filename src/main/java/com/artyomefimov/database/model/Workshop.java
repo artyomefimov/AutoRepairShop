@@ -35,7 +35,8 @@ public class Workshop {
     @OneToMany(mappedBy = "customerPassportNum", cascade = CascadeType.REMOVE)
     private Set<Customer> customers = new HashSet<>();
 
-    public Workshop() {}
+    public Workshop() {
+    }
 
     public Workshop(String name, String address, Time openHours, Time closeHours, String ownerName) {
         this.name = name;
@@ -58,7 +59,7 @@ public class Workshop {
     }
 
     public void setName(String name) {
-        this.name = name.trim();
+        this.name = name;
     }
 
     public String getAddress() {
@@ -66,31 +67,31 @@ public class Workshop {
     }
 
     public void setAddress(String address) {
-        this.address = address.trim();
+        this.address = address;
     }
 
     public Time getOpenHours() {
         return openHours;
     }
 
-    public void setOpenHours(Time open_hours) {
-        this.openHours = open_hours;
+    public void setOpenHours(Time openHours) {
+        this.openHours = openHours;
     }
 
     public Time getCloseHours() {
         return closeHours;
     }
 
-    public void setCloseHours(Time close_hours) {
-        this.closeHours = close_hours;
+    public void setCloseHours(Time closeHours) {
+        this.closeHours = closeHours;
     }
 
     public String getOwnerName() {
         return ownerName;
     }
 
-    public void setOwnerName(String owner_name) {
-        this.ownerName = owner_name.trim();
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public Set<Master> getMasters() {

@@ -6,6 +6,11 @@ import javax.persistence.*;
 @Table(name = "car")
 public class Car {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
+    @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", schema = "public", allocationSize = 1)
+    @Column(name = "car_id")
+    private Long carId;
+
     @Column(name = "car_number")
     private String carNumber;
 
@@ -22,11 +27,11 @@ public class Car {
     private int mileage;
 
     @ManyToOne
-    @JoinColumn(name = "customerPassportNum")
+    @JoinColumn(name = "customerPassportNum", nullable = false)
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "masterPassportNum")
+    @JoinColumn(name = "masterPassportNum", nullable = false)
     private Master master;
 
     public Car() {
@@ -40,6 +45,14 @@ public class Car {
         this.mileage = mileage;
         this.customer = customer;
         this.master = master;
+    }
+
+    public Long getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Long carId) {
+        this.carId = carId;
     }
 
     public String getCarNumber() {

@@ -30,7 +30,7 @@ public class LevelController {
     }
 
     @PostMapping(
-            value = "**/levels",
+            value = "**/levels/level",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Level> createLevel(@RequestBody @Valid Level level) {
@@ -39,7 +39,7 @@ public class LevelController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "**/levels/update/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "**/levels/level/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Level> updateLevel(@PathVariable Long id,
                                              @RequestBody @Valid Level level) {
         return new ResponseEntity<>(
@@ -47,7 +47,7 @@ public class LevelController {
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/levels/update/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "**/levels/level/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Level> getLevel(@PathVariable Long id) {
         Optional<Level> level = levelRepository.findById(id);
         return level
@@ -55,7 +55,7 @@ public class LevelController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "**/levels/{id}")
+    @DeleteMapping(value = "**/levels/level/{id}")
     public ResponseEntity<Void> deleteLevel(@PathVariable Long id) {
         try {
             levelRepository.deleteById(id);

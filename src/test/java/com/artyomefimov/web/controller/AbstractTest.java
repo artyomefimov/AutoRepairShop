@@ -1,6 +1,6 @@
 package com.artyomefimov.web.controller;
 
-import com.artyomefimov.database.model.Workshop;
+import com.artyomefimov.database.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
@@ -23,18 +24,33 @@ public abstract class AbstractTest {
 
     protected ObjectMapper objectMapper = new ObjectMapper();
 
-    protected String incorrectWorkshopJson =
-            "{\"inn\":null," +
-                    "\"name\":\"1\"," +
-                    "\"address\":\"1\"," +
-                    "\"openHours\":\"STRINGVALUE\"," +
-                    "\"closeHours\":\"18:33:09\"," +
-                    "\"ownerName\":\"1\"," +
-                    "\"masters\":[]," +
-                    "\"customers\":[]}";
-
-    protected List<Workshop> workshops = asList(
+    protected List<Workshop> workshopList = asList(
             new Workshop("1", "1", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
             new Workshop("2", "2", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
-            new Workshop("3", "3", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"));
+            new Workshop("3", "3", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1")
+    );
+
+    protected List<Car> carList = asList(
+            new Car("num1", "mark1", "model1", "crashType1", 11, new Customer(), new Master()),
+            new Car("num2", "mark2", "model2", "crashType2", 12, new Customer(), new Master()),
+            new Car("num3", "mark3", "model3", "crashType3", 13, new Customer(), new Master())
+    );
+
+    protected List<Customer> customerList = asList(
+            new Customer("name1", "phone1", "address1", new Date(System.currentTimeMillis()), new Workshop()),
+            new Customer("name2", "phone2", "address2", new Date(System.currentTimeMillis()), new Workshop()),
+            new Customer("name3", "phone3", "address3", new Date(System.currentTimeMillis()), new Workshop())
+    );
+
+    protected List<Level> levelList = asList(
+            new Level("level1"),
+            new Level("level2"),
+            new Level("level3")
+    );
+
+    protected List<Master> masterList = asList(
+            new Master("name1", "phone1", new Level(), new Workshop()),
+            new Master("name2", "phone2", new Level(), new Workshop()),
+            new Master("name3", "phone3", new Level(), new Workshop())
+    );
 }
