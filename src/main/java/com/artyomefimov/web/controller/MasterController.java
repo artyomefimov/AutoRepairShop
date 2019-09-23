@@ -25,7 +25,7 @@ public class MasterController {
     @GetMapping(value = "**/workshop/{inn}/masters", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Master>> getMastersByWorkshopInn(@PathVariable Long inn) {
         return new ResponseEntity<>(
-                masterRepository.findAllByWorkshop_Inn(inn),
+                masterRepository.findAllByWorkshop_WorkshopId(inn),
                 HttpStatus.OK);
     }
 
@@ -33,7 +33,7 @@ public class MasterController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<Master>> getMastersByLevelId(@PathVariable Long id) {
         return new ResponseEntity<>(
-                masterRepository.findAllByLevel_Id(id),
+                masterRepository.findAllByLevel_LevelId(id),
                 HttpStatus.OK);
     }
 

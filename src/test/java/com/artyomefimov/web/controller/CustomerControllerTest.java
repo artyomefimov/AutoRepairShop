@@ -31,7 +31,7 @@ public class CustomerControllerTest extends AbstractTest {
 
     @Test
     public void testGettingCustomersByWorkshopInn() throws Exception {
-        when(customerRepository.findAllByWorkshop_Inn(any(Long.class)))
+        when(customerRepository.findAllByWorkshop_WorkshopId(any(Long.class)))
                 .thenReturn(customerList);
 
         mockMvc.perform(

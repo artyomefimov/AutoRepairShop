@@ -31,7 +31,7 @@ public class CarControllerTest extends AbstractTest {
 
     @Test
     public void testReturningCarsByMasterPassportNum() throws Exception {
-        when(carRepository.findAllByMaster_MasterPassportNum(any(Long.class)))
+        when(carRepository.findAllByMaster_MasterId(any(Long.class)))
                 .thenReturn(carList);
 
         mockMvc.perform(
@@ -44,7 +44,7 @@ public class CarControllerTest extends AbstractTest {
 
     @Test
     public void testReturningCarsByCustomerPassportNum() throws Exception {
-        when(carRepository.findAllByCustomer_CustomerPassportNum(any(Long.class)))
+        when(carRepository.findAllByCustomer_CustomerId(any(Long.class)))
                 .thenReturn(carList);
 
         mockMvc.perform(

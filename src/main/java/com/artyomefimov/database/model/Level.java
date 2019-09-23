@@ -1,5 +1,7 @@
 package com.artyomefimov.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,12 +12,13 @@ public class Level {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", schema = "public", allocationSize = 1)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "level_id")
+    private Long levelId;
 
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "level", cascade = CascadeType.ALL)
     private Set<Master> masters = new HashSet<>();
 
@@ -26,12 +29,12 @@ public class Level {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
+    public Long getLevelId() {
+        return levelId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLevelId(Long levelId) {
+        this.levelId = levelId;
     }
 
     public String getName() {

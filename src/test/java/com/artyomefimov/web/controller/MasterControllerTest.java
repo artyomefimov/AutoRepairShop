@@ -31,7 +31,7 @@ public class MasterControllerTest extends AbstractTest {
 
     @Test
     public void testGettingMastersByWorkshopInn() throws Exception {
-        when(masterRepository.findAllByWorkshop_Inn(any(Long.class)))
+        when(masterRepository.findAllByWorkshop_WorkshopId(any(Long.class)))
                 .thenReturn(masterList);
 
         mockMvc.perform(
@@ -44,7 +44,7 @@ public class MasterControllerTest extends AbstractTest {
 
     @Test
     public void testGettingMastersByLevelId() throws Exception {
-        when(masterRepository.findAllByLevel_Id(any(Long.class)))
+        when(masterRepository.findAllByLevel_LevelId(any(Long.class)))
                 .thenReturn(masterList);
 
         mockMvc.perform(

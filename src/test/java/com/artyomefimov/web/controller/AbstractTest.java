@@ -25,9 +25,9 @@ public abstract class AbstractTest {
     protected ObjectMapper objectMapper = new ObjectMapper();
 
     protected List<Workshop> workshopList = asList(
-            new Workshop("1", "1", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
-            new Workshop("2", "2", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
-            new Workshop("3", "3", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1")
+            new Workshop(1, "1", "1", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
+            new Workshop(2, "2", "2", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
+            new Workshop(3,"3", "3", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1")
     );
 
     protected List<Car> carList = asList(
@@ -37,9 +37,9 @@ public abstract class AbstractTest {
     );
 
     protected List<Customer> customerList = asList(
-            new Customer("name1", "phone1", "address1", new Date(System.currentTimeMillis()), new Workshop()),
-            new Customer("name2", "phone2", "address2", new Date(System.currentTimeMillis()), new Workshop()),
-            new Customer("name3", "phone3", "address3", new Date(System.currentTimeMillis()), new Workshop())
+            new Customer(1,"name1", "phone1", "address1", new Date(System.currentTimeMillis()), new Workshop()),
+            new Customer(2,"name2", "phone2", "address2", new Date(System.currentTimeMillis()), new Workshop()),
+            new Customer(3,"name3", "phone3", "address3", new Date(System.currentTimeMillis()), new Workshop())
     );
 
     protected List<Level> levelList = asList(
@@ -49,8 +49,8 @@ public abstract class AbstractTest {
     );
 
     protected List<Master> masterList = asList(
-            new Master("name1", "phone1", new Level(), new Workshop()),
-            new Master("name2", "phone2", new Level(), new Workshop()),
-            new Master("name3", "phone3", new Level(), new Workshop())
+            new Master(1,"name1", "phone1", new Level(), new Workshop()),
+            new Master(2,"name2", "phone2", new Level(), new Workshop()),
+            new Master(3,"name3", "phone3", new Level(), new Workshop())
     );
 }

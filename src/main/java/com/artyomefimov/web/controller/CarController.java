@@ -25,14 +25,14 @@ public class CarController {
     @GetMapping(value = "**/customer/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Car>> getCarsByCustomerPassportNum(@PathVariable Long passportNum) {
         return new ResponseEntity<>(
-                carRepository.findAllByCustomer_CustomerPassportNum(passportNum),
+                carRepository.findAllByCustomer_CustomerId(passportNum),
                 HttpStatus.OK);
     }
 
     @GetMapping(value = "**/master/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Car>> getCarsByMasterPassportNum(@PathVariable Long passportNum) {
         return new ResponseEntity<>(
-                carRepository.findAllByMaster_MasterPassportNum(passportNum),
+                carRepository.findAllByMaster_MasterId(passportNum),
                 HttpStatus.OK);
     }
 

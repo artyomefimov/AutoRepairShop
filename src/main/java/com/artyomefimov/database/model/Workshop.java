@@ -1,5 +1,7 @@
 package com.artyomefimov.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.HashSet;
@@ -11,8 +13,11 @@ public class Workshop {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", schema = "public", allocationSize = 1)
+    @Column(name = "workshop_id")
+    private Long workshopId;
+
     @Column(name = "inn")
-    private Long inn;
+    private Integer inn;
 
     @Column(name = "name")
     private String name;
@@ -29,16 +34,19 @@ public class Workshop {
     @Column(name = "owner_name")
     private String ownerName;
 
-    @OneToMany(mappedBy = "masterPassportNum", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "masterId", cascade = CascadeType.REMOVE)
     private Set<Master> masters = new HashSet<>();
 
-    @OneToMany(mappedBy = "customerPassportNum", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @OneToMany(mappedBy = "customerId", cascade = CascadeType.REMOVE)
     private Set<Customer> customers = new HashSet<>();
 
     public Workshop() {
     }
 
-    public Workshop(String name, String address, Time openHours, Time closeHours, String ownerName) {
+    public Workshop(Integer inn, String name, String address, Time openHours, Time closeHours, String ownerName) {
+        this.inn = inn;
         this.name = name;
         this.address = address;
         this.openHours = openHours;
@@ -46,11 +54,19 @@ public class Workshop {
         this.ownerName = ownerName;
     }
 
-    public Long getInn() {
+    public Long getWorkshopId() {
+        return workshopId;
+    }
+
+    public void setWorkshopId(Long workshopId) {
+        this.workshopId = workshopId;
+    }
+
+    public Integer getInn() {
         return inn;
     }
 
-    public void setInn(Long inn) {
+    public void setInn(Integer inn) {
         this.inn = inn;
     }
 

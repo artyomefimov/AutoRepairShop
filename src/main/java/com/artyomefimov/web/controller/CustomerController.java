@@ -25,7 +25,7 @@ public class CustomerController {
     @GetMapping(value = "**/workshop/{inn}/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Customer>> getCustomersByWorkshopInn(@PathVariable Long inn) {
         return new ResponseEntity<>(
-                customerRepository.findAllByWorkshop_Inn(inn),
+                customerRepository.findAllByWorkshop_WorkshopId(inn),
                 HttpStatus.OK);
     }
 

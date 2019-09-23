@@ -1,5 +1,7 @@
 package com.artyomefimov.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
@@ -11,8 +13,11 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", schema = "public", allocationSize = 1)
+    @Column(name = "customer_id")
+    private Long customerId;
+
     @Column(name = "customer_passport_num")
-    private Long customerPassportNum;
+    private Integer customerPassportNum;
 
     @Column(name = "name")
     private String name;
@@ -26,17 +31,20 @@ public class Customer {
     @Column(name = "birth_date")
     private Date birthDate;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "inn", nullable = false)
+    @JoinColumn(name = "workshop_id", nullable = false)
     private Workshop workshop;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "carId", cascade = CascadeType.REMOVE)
     private Set<Car> cars = new HashSet<>();
 
     public Customer() {
     }
 
-    public Customer(String name, String phone, String address, Date birthDate, Workshop workshop) {
+    public Customer(Integer customerPassportNum, String name, String phone, String address, Date birthDate, Workshop workshop) {
+        this.customerPassportNum = customerPassportNum;
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -44,11 +52,19 @@ public class Customer {
         this.workshop = workshop;
     }
 
-    public Long getCustomerPassportNum() {
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Integer getCustomerPassportNum() {
         return customerPassportNum;
     }
 
-    public void setCustomerPassportNum(Long customerPassportNum) {
+    public void setCustomerPassportNum(Integer customerPassportNum) {
         this.customerPassportNum = customerPassportNum;
     }
 

@@ -1,5 +1,7 @@
 package com.artyomefimov.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,8 +12,11 @@ public class Master {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
     @SequenceGenerator(name = "id_sequence", sequenceName = "id_sequence", schema = "public", allocationSize = 1)
+    @Column(name = "master_id")
+    private Long masterId;
+
     @Column(name = "master_passport_num")
-    private Long masterPassportNum;
+    private Integer masterPassportNum;
 
     @Column(name = "name")
     private String name;
@@ -19,32 +24,44 @@ public class Master {
     @Column(name = "phone_num")
     private String phone;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "inn", nullable = false)
+    @JoinColumn(name = "workshop_id", nullable = false)
     private Workshop workshop;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "carId", cascade = CascadeType.ALL) // todo rethink
     private Set<Car> cars = new HashSet<>();
 
     public Master() {
     }
 
-    public Master(String name, String phone, Level level, Workshop workshop) {
+    public Master(Integer masterPassportNum, String name, String phone, Level level, Workshop workshop) {
+        this.masterPassportNum = masterPassportNum;
         this.name = name;
         this.phone = phone;
         this.level = level;
         this.workshop = workshop;
     }
 
-    public Long getMasterPassportNum() {
+    public Long getMasterId() {
+        return masterId;
+    }
+
+    public void setMasterId(Long masterId) {
+        this.masterId = masterId;
+    }
+
+    public Integer getMasterPassportNum() {
         return masterPassportNum;
     }
 
-    public void setMasterPassportNum(Long masterPassportNum) {
+    public void setMasterPassportNum(Integer masterPassportNum) {
         this.masterPassportNum = masterPassportNum;
     }
 

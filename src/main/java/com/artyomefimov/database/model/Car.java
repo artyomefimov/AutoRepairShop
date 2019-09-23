@@ -1,5 +1,7 @@
 package com.artyomefimov.database.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,12 +28,14 @@ public class Car {
     @Column(name = "mileage")
     private int mileage;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "customerPassportNum", nullable = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "masterPassportNum", nullable = false)
+    @JoinColumn(name = "master_id", nullable = false)
     private Master master;
 
     public Car() {
