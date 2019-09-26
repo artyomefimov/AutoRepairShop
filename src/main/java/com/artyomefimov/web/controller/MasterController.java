@@ -22,18 +22,18 @@ public class MasterController {
         this.masterRepository = masterRepository;
     }
 
-    @GetMapping(value = "**/workshop/{inn}/masters", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Master>> getMastersByWorkshopInn(@PathVariable Long inn) {
+    @GetMapping(value = "**/workshop/{workshopId}/masters", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Master>> getMastersByWorkshopInn(@PathVariable Long workshopId) {
         return new ResponseEntity<>(
-                masterRepository.findAllByWorkshop_WorkshopId(inn),
+                masterRepository.findAllByWorkshop_WorkshopId(workshopId),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/level/{id}/masters", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "**/level/{levelId}/masters", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<Master>> getMastersByLevelId(@PathVariable Long id) {
+    public ResponseEntity<List<Master>> getMastersByLevelId(@PathVariable Long levelId) {
         return new ResponseEntity<>(
-                masterRepository.findAllByLevel_LevelId(id),
+                masterRepository.findAllByLevel_LevelId(levelId),
                 HttpStatus.OK);
     }
 
@@ -47,26 +47,26 @@ public class MasterController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "**/masters/master/{passportNum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Master> updateMaster(@PathVariable Long passportNum,
+    @PutMapping(value = "**/masters/master/{masterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Master> updateMaster(@PathVariable Long masterId,
                                                @RequestBody @Valid Master master) {
         return new ResponseEntity<>(
                 masterRepository.save(master),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/masters/master/{passportNum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Master> getMaster(@PathVariable Long passportNum) {
-        Optional<Master> master = masterRepository.findById(passportNum);
+    @GetMapping(value = "**/masters/master/{masterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Master> getMaster(@PathVariable Long masterId) {
+        Optional<Master> master = masterRepository.findById(masterId);
         return master
                 .map(m -> new ResponseEntity<>(m, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "**/masters/master/{passportNum}")
-    public ResponseEntity<Void> deleteMaster(@PathVariable Long passportNum) {
+    @DeleteMapping(value = "**/masters/master/{masterId}")
+    public ResponseEntity<Void> deleteMaster(@PathVariable Long masterId) {
         try {
-            masterRepository.deleteById(passportNum);
+            masterRepository.deleteById(masterId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }

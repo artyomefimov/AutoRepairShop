@@ -39,26 +39,26 @@ public class LevelController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "**/levels/level/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Level> updateLevel(@PathVariable Long id,
+    @PutMapping(value = "**/levels/level/{levelId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Level> updateLevel(@PathVariable Long levelId,
                                              @RequestBody @Valid Level level) {
         return new ResponseEntity<>(
                 levelRepository.save(level),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/levels/level/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Level> getLevel(@PathVariable Long id) {
-        Optional<Level> level = levelRepository.findById(id);
+    @GetMapping(value = "**/levels/level/{levelId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Level> getLevel(@PathVariable Long levelId) {
+        Optional<Level> level = levelRepository.findById(levelId);
         return level
                 .map(l -> new ResponseEntity<>(l, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "**/levels/level/{id}")
-    public ResponseEntity<Void> deleteLevel(@PathVariable Long id) {
+    @DeleteMapping(value = "**/levels/level/{levelId}")
+    public ResponseEntity<Void> deleteLevel(@PathVariable Long levelId) {
         try {
-            levelRepository.deleteById(id);
+            levelRepository.deleteById(levelId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }

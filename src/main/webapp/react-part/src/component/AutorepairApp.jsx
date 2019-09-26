@@ -1,17 +1,45 @@
 import React, { Component } from "react";
 import AppName from "./AppName";
-import PageName from "./PageName";
 import ObjectsTable from "./ObjectsTable";
+import ObjectDetailsPage from "./ObjectDetailsPage";
+import * as Constants from "../Constants";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-const tableHeaders = ['INN', 'Name', 'Address', 'Open hours', 'Close hours', 'Owner name']
 class AutorepairApp extends Component {
   render() {
     return (
-      <>
-        <AppName />
-        <PageName pageName = 'Workshops'/>
-        <ObjectsTable tableHeaders = {tableHeaders} objectType = 'workshop'/>
-      </>
+      <Router>
+        <>
+          <AppName />
+          <Switch>
+            <Route
+              exact path="/"
+              render={props => (
+                <ObjectsTable
+                  tableHeaders={Constants.workshopListTableHeaders}
+                  objectType={Constants.workshopObjectType}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path={Constants.WORKSHOP_LIST_URL}
+              render={props => (
+                <ObjectsTable
+                  tableHeaders={Constants.workshopListTableHeaders}
+                  objectType={Constants.workshopObjectType}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path={`${Constants.WORKSHOP_DETAIL_URL}/:id`}
+              //path={'/workshops/workshop/:id'}
+              render={props => <ObjectDetailsPage {...props} />}
+            />
+          </Switch>
+        </>
+      </Router>
     );
   }
 }

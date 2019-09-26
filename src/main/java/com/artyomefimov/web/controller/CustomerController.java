@@ -22,10 +22,10 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping(value = "**/workshop/{inn}/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Customer>> getCustomersByWorkshopInn(@PathVariable Long inn) {
+    @GetMapping(value = "**/workshop/{workshopId}/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Customer>> getCustomersByWorkshopInn(@PathVariable Long workshopId) {
         return new ResponseEntity<>(
-                customerRepository.findAllByWorkshop_WorkshopId(inn),
+                customerRepository.findAllByWorkshop_WorkshopId(workshopId),
                 HttpStatus.OK);
     }
 
@@ -39,26 +39,26 @@ public class CustomerController {
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "**/customers/customer/{passportNum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long passportNum,
+    @PutMapping(value = "**/customers/customer/{customerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long customerId,
                                                    @RequestBody @Valid Customer customer) {
         return new ResponseEntity<>(
                 customerRepository.save(customer),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/customers/customer/{passportNum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Customer> getCustomer(@PathVariable Long passportNum) {
-        Optional<Customer> customer = customerRepository.findById(passportNum);
+    @GetMapping(value = "**/customers/customer/{customerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
         return customer
                 .map(m -> new ResponseEntity<>(m, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "**/customers/customer/{passportNum}")
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long passportNum) {
+    @DeleteMapping(value = "**/customers/customer/{customerId}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long customerId) {
         try {
-            customerRepository.deleteById(passportNum);
+            customerRepository.deleteById(customerId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }

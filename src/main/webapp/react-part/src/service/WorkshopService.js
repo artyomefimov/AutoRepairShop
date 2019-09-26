@@ -1,13 +1,20 @@
 import axios from 'axios'
-import AUTOREPAIR_API_URL from '../UrlConstants'
+import * as Constants from '../Constants';
 
-const ALL_WORKSHOPS_URL = '/workshops'
-const WORKSHOP_URL = '/workshop'
+const AUTOREPAIR_API_URL = 'http://localhost:8080'
 
-class WorkshopService {
+class AutorepairService {
     getAllWorkshops() {
-        return axios.get(`http://localhost:8080${ALL_WORKSHOPS_URL}`);
+        return axios.get(`${AUTOREPAIR_API_URL}${Constants.WORKSHOP_LIST_URL}`);
+    }
+
+    deleteWorkshop(id) {
+        return axios.delete(`${Constants.WORKSHOP_DETAIL_URL}/${id}`)
+    }
+
+    getWorkshop(id) {
+        return axios.get(`${Constants.WORKSHOP_DETAIL_URL}/${id}`)
     }
 }
 
-export default new WorkshopService()
+export default new AutorepairService()

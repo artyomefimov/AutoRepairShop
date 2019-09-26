@@ -22,17 +22,17 @@ public class CarController {
         this.carRepository = carRepository;
     }
 
-    @GetMapping(value = "**/customer/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Car>> getCarsByCustomerPassportNum(@PathVariable Long passportNum) {
+    @GetMapping(value = "**/customer/{customerId}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Car>> getCarsByCustomerPassportNum(@PathVariable Long customerId) {
         return new ResponseEntity<>(
-                carRepository.findAllByCustomer_CustomerId(passportNum),
+                carRepository.findAllByCustomer_CustomerId(customerId),
                 HttpStatus.OK);
     }
 
-    @GetMapping(value = "**/master/{passportNum}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<Car>> getCarsByMasterPassportNum(@PathVariable Long passportNum) {
+    @GetMapping(value = "**/master/{masterId}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Car>> getCarsByMasterPassportNum(@PathVariable Long masterId) {
         return new ResponseEntity<>(
-                carRepository.findAllByMaster_MasterId(passportNum),
+                carRepository.findAllByMaster_MasterId(masterId),
                 HttpStatus.OK);
     }
 

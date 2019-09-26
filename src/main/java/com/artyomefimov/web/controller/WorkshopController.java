@@ -39,24 +39,24 @@ public class WorkshopController {
         return new ResponseEntity<>(workshopRepository.save(workshop), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/workshops/workshop/{inn}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Workshop> updateWorkshop(@PathVariable Long inn,
+    @PutMapping(value = "/workshops/workshop/{workshopId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Workshop> updateWorkshop(@PathVariable Long workshopId,
                                                    @RequestBody @Valid Workshop workshop) {
         return new ResponseEntity<>(workshopRepository.save(workshop), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/workshops/workshop/{inn}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Workshop> getWorkshop(@PathVariable Long inn) {
-        Optional<Workshop> workshop = workshopRepository.findById(inn);
+    @GetMapping(value = "/workshops/workshop/{workshopId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Workshop> getWorkshop(@PathVariable Long workshopId) {
+        Optional<Workshop> workshop = workshopRepository.findById(workshopId);
         return workshop.
                 map(workshop1 -> new ResponseEntity<>(workshop1, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "/workshops/workshop/{inn}")
-    public ResponseEntity<Void> deleteWorkshop(@PathVariable Long inn) {
+    @DeleteMapping(value = "/workshops/workshop/{workshopId}")
+    public ResponseEntity<Void> deleteWorkshop(@PathVariable Long workshopId) {
         try {
-            workshopRepository.deleteById(inn);
+            workshopRepository.deleteById(workshopId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println(e.getMessage());
         }
