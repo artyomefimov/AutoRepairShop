@@ -1,5 +1,4 @@
 import axios from 'axios'
-import * as Constants from '../Constants';
 
 const AUTOREPAIR_API_URL = 'http://localhost:8080'
 
@@ -9,11 +8,19 @@ class AutorepairService {
     }
 
     deleteWorkshop(id) {
-        return axios.delete(`/workshops/workshop/${id}`)
+        return axios.delete(`${AUTOREPAIR_API_URL}/workshops/workshop/${id}`)
     }
 
     getWorkshop(id) {
         return axios.get(`${AUTOREPAIR_API_URL}/workshops/workshop/${id}`)
+    }
+
+    updateWorkshop(id, workshop) {
+        return axios.put(`${AUTOREPAIR_API_URL}/workshops/workshop/${id}`, workshop)
+    }
+
+    createWorkshop(workshop) {
+        return axios.post(`${AUTOREPAIR_API_URL}/workshops/workshop`, workshop)
     }
 }
 

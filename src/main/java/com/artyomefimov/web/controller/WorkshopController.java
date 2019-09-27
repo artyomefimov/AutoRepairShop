@@ -10,11 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Arrays.asList;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

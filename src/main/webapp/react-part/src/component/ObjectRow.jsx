@@ -29,7 +29,7 @@ class ObjectRow extends Component {
     switch (this.props.objectType) {
       case Constants.workshopObjectType:
         return (
-          <tr key={object.workshopId}>
+          <tr className="top-margin" key={object.workshopId}>
             <td key={key++} className="main-td">
               {object.inn}
             </td>
@@ -53,7 +53,7 @@ class ObjectRow extends Component {
                 className="btn btn-info"
                 onClick={() => this.openObject(object.workshopId)}
               >
-                Open
+                Открыть
               </button>
             </td>
             <td>
@@ -61,7 +61,7 @@ class ObjectRow extends Component {
                 className="btn btn-success"
                 onClick={() => this.openObjectDetails(object.workshopId)}
               >
-                Update
+                Изменить
               </button>
             </td>
             <td>
@@ -69,7 +69,7 @@ class ObjectRow extends Component {
                 className="btn btn-warning"
                 onClick={() => this.deleteObject(object.workshopId)}
               >
-                Delete
+                Удалить
               </button>
             </td>
           </tr>

@@ -1,9 +1,9 @@
 // page names
-export const workshopListPageName = 'Автомастерские'
-export const workshopDetailPageName = 'Автомастерская'
+export const workshopListPageName = 'Мастерские'
+export const workshopDetailPageName = 'Мастерская'
 
 // table headers
-export const workshopListTableHeaders = ['ИНН', 'Название', 'Адрес', 'Открывается в', 'Закрывается в', 'Имя владельца']
+export const workshopListTableHeaders = ['ИНН', 'Название', 'Адрес', 'Открывается в', 'Закрывается в', 'Имя владельца', '', '', '']
 
 // object types
 export const workshopObjectType = 'workshop'

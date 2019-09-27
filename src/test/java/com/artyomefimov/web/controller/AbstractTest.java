@@ -25,7 +25,7 @@ public abstract class AbstractTest {
     protected ObjectMapper objectMapper = new ObjectMapper();
 
     protected List<Workshop> workshopList = asList(
-            new Workshop(1, "1", "1", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
+            new Workshop(1, "1", "1", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), null),
             new Workshop(2, "2", "2", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1"),
             new Workshop(3,"3", "3", new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()), "1")
     );

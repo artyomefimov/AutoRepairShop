@@ -16,6 +16,7 @@ class ObjectsTable extends Component {
     this.deleteObject = this.deleteObject.bind(this);
     this.openObjectDetails = this.openObjectDetails.bind(this);
     this.openObject = this.openObject.bind(this);
+    this.createObject = this.createObject.bind(this);
   }
 
   componentDidMount() {
@@ -25,20 +26,17 @@ class ObjectsTable extends Component {
   requestObjects() {
     WorkshopService.getAllWorkshops().then(response => {
       this.setState({ objects: response.data });
-    });
+    }).catch(e => console.log(e));;
   }
 
   deleteObject(id) {
-    // WorkshopService.deleteWorkshop(id).then(response => {
-    //   this.setState({message: 'Автомастерская успешно удалена!'})
-    //   this.requestObjects()
-    // })
-   // alert(`delete object ${id}`);
-    this.props.history.push(`-1`);
+    WorkshopService.deleteWorkshop(id).then(() => {
+      this.setState({message: 'Автомастерская успешно удалена!'})
+      this.requestObjects()
+    }).catch(e => console.log(e));
   }
 
   openObjectDetails(id) {
-    alert(`openObjectDetails ${id}`)
     this.props.history.push(`/workshops/workshop/${id}`);
   }
 
@@ -46,11 +44,15 @@ class ObjectsTable extends Component {
     alert(`openObject ${id}`);
   }
 
+  createObject() {
+    this.props.history.push(`/workshops/workshop/-1`);
+  }
+
   render() {
     let key = 0;
     return (
       <>
-        <PageName pageName={Constants.workshopListPageName} />
+        <PageName pageName={this.props.pageName} />
         <div className="container">
           {this.state.message && (
             <div className="alert alert-success">{this.state.message}</div>
@@ -79,6 +81,12 @@ class ObjectsTable extends Component {
                 ))}
               </tbody>
             </table>
+            <button
+                className="btn btn-success"
+                onClick={() => this.createObject()}
+              >
+                Добавить
+              </button>
           </div>
         </div>
       </>

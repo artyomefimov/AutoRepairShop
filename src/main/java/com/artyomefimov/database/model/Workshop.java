@@ -1,5 +1,6 @@
 package com.artyomefimov.database.model;
 
+import com.artyomefimov.Utils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -90,16 +91,18 @@ public class Workshop {
         return openHours;
     }
 
-    public void setOpenHours(Time openHours) {
-        this.openHours = openHours;
+    public void setOpenHours(String openHours) {
+        openHours = Utils.timeFormatter(openHours);
+        this.openHours = Time.valueOf(openHours);
     }
 
     public Time getCloseHours() {
         return closeHours;
     }
 
-    public void setCloseHours(Time closeHours) {
-        this.closeHours = closeHours;
+    public void setCloseHours(String closeHours) {
+        closeHours = Utils.timeFormatter(closeHours);
+        this.closeHours = Time.valueOf(closeHours);
     }
 
     public String getOwnerName() {
