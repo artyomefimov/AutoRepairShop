@@ -13,7 +13,8 @@ class AutorepairApp extends Component {
           <AppName />
           <Switch>
             <Route
-              exact path="/"
+              exact
+              path="/"
               render={props => (
                 <ObjectsTable
                   tableHeaders={Constants.workshopListTableHeaders}
@@ -23,7 +24,7 @@ class AutorepairApp extends Component {
               )}
             />
             <Route
-              path={Constants.WORKSHOP_LIST_URL}
+              exact path="/workshops"
               render={props => (
                 <ObjectsTable
                   tableHeaders={Constants.workshopListTableHeaders}
@@ -33,7 +34,7 @@ class AutorepairApp extends Component {
               )}
             />
             <Route
-              path={`${Constants.WORKSHOP_DETAIL_URL}/:id`}
+              path='/workshops/workshop/:id'
               //path={'/workshops/workshop/:id'}
               render={props => <ObjectDetailsPage {...props} />}
             />

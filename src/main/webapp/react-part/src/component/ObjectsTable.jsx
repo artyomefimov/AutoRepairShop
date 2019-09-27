@@ -38,8 +38,8 @@ class ObjectsTable extends Component {
   }
 
   openObjectDetails(id) {
-    //alert(`openObjectDetails ${id}`)
-    this.props.history.push(`${Constants.WORKSHOP_DETAIL_URL}/${id}`);
+    alert(`openObjectDetails ${id}`)
+    this.props.history.push(`/workshops/workshop/${id}`);
   }
 
   openObject(id) {
