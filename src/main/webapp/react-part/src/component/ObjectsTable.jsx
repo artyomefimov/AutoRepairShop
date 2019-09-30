@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ObjectRow from "./ObjectRow";
 import WorkshopService from "../service/WorkshopService";
 import PageName from "./PageName";
-import * as Constants from "../Constants";
+import SuccessMessage from "./message/SuccessMessage";
 
 class ObjectsTable extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class ObjectsTable extends Component {
   requestObjects() {
     WorkshopService.getAllWorkshops().then(response => {
       this.setState({ objects: response.data });
-    }).catch(e => console.log(e));;
+    }).catch(e => console.log(e));
   }
 
   deleteObject(id) {
@@ -55,7 +55,7 @@ class ObjectsTable extends Component {
         <PageName pageName={this.props.pageName} />
         <div className="container">
           {this.state.message && (
-            <div className="alert alert-success">{this.state.message}</div>
+            <SuccessMessage message={this.state.message} />
           )}
           <div className="container">
             <table className="table">
@@ -82,11 +82,11 @@ class ObjectsTable extends Component {
               </tbody>
             </table>
             <button
-                className="btn btn-success"
-                onClick={() => this.createObject()}
-              >
-                Добавить
-              </button>
+              className="btn btn-success"
+              onClick={() => this.createObject()}
+            >
+              Добавить
+            </button>
           </div>
         </div>
       </>
