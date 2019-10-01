@@ -13,7 +13,7 @@ class LevelDetailsPage extends Component {
 
     this.state = {
       errorMessage: "",
-      id: this.props.match.params.id,
+      levelId: this.props.match.params.id,
       details: null,
       isNew: false
     };
@@ -23,11 +23,11 @@ class LevelDetailsPage extends Component {
   }
 
   componentDidMount() {
-    if (this.state.id === "-1") {
+    if (this.state.levelId === "-1") {
       return;
     }
     this.setState({ isNew: false });
-    this.requestLevelDetails(this.state.id);
+    this.requestLevelDetails(this.state.levelId);
   }
 
   requestLevelDetails(id) {
@@ -44,7 +44,7 @@ class LevelDetailsPage extends Component {
 
   onSubmit(values) {
     let level = {
-      levelId: this.state.id,
+      levelId: this.state.levelId,
       name: values.name
     };
 

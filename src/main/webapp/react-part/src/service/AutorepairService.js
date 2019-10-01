@@ -7,16 +7,16 @@ class AutorepairService {
         return axios.get(`${AUTOREPAIR_API_URL}/workshops`);
     }
 
-    deleteWorkshop(id) {
-        return axios.delete(`${AUTOREPAIR_API_URL}/workshops/workshop/${id}`)
+    deleteWorkshop(workshopId) {
+        return axios.delete(`${AUTOREPAIR_API_URL}/workshops/workshop/${workshopId}`)
     }
 
-    getWorkshop(id) {
-        return axios.get(`${AUTOREPAIR_API_URL}/workshops/workshop/${id}`)
+    getWorkshop(workshopId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/workshops/workshop/${workshopId}`)
     }
 
-    updateWorkshop(id, workshop) {
-        return axios.put(`${AUTOREPAIR_API_URL}/workshops/workshop/${id}`, workshop)
+    updateWorkshop(workshopId, workshop) {
+        return axios.put(`${AUTOREPAIR_API_URL}/workshops/workshop/${workshopId}`, workshop)
     }
 
     createWorkshop(workshop) {
@@ -27,20 +27,40 @@ class AutorepairService {
         return axios.get(`${AUTOREPAIR_API_URL}/levels`)
     }
 
-    deleteLevel(id) {
-        return axios.delete(`${AUTOREPAIR_API_URL}/levels/level/${id}`)
+    deleteLevel(levelId) {
+        return axios.delete(`${AUTOREPAIR_API_URL}/levels/level/${levelId}`)
     }
 
-    getLevel(id) {
-        return axios.get(`${AUTOREPAIR_API_URL}/levels/level/${id}`)
+    getLevel(levelId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/levels/level/${levelId}`)
     }
 
-    updateLevel(id, level) {
-        return axios.put(`${AUTOREPAIR_API_URL}/levels/level/${id}`, level)
+    updateLevel(levelId, level) {
+        return axios.put(`${AUTOREPAIR_API_URL}/levels/level/${levelId}`, level)
     }
 
     createLevel(level) {
         return axios.post(`${AUTOREPAIR_API_URL}/levels/level`, level)
+    }
+
+    getCustomersByWorkshopId(workshopId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/workshop/${workshopId}/customers`)
+    }
+
+    deleteCustomer(customerId) {
+        return axios.delete(`${AUTOREPAIR_API_URL}/customers/customer/${customerId}`)
+    }
+
+    getCustomer(customerId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/customers/customer/${customerId}`)
+    }
+
+    updateCustomer(customerId, customer) {
+        return axios.put(`${AUTOREPAIR_API_URL}/customers/customer/${customerId}`, customer)
+    }
+
+    createCustomer(customer) {
+        return axios.post(`${AUTOREPAIR_API_URL}/customers/customer`, customer)
     }
 } 
 

@@ -13,7 +13,7 @@ class WorkshopDetailsPage extends Component {
 
     this.state = {
       errorMessage: "",
-      id: this.props.match.params.id,
+      workshopId: this.props.match.params.id,
       details: null,
       isNew: false
     };
@@ -23,11 +23,11 @@ class WorkshopDetailsPage extends Component {
   }
 
   componentDidMount() {
-    if (this.state.id === "-1") {
+    if (this.state.workshopId === "-1") {
       return;
     }
     this.setState({ isNew: false });
-    this.requestWorkshopDetails(this.state.id);
+    this.requestWorkshopDetails(this.state.workshopId);
   }
 
   requestWorkshopDetails(id) {
@@ -44,7 +44,7 @@ class WorkshopDetailsPage extends Component {
 
   onSubmit(values) {
     let workshop = {
-      workshopId: this.state.id,
+      workshopId: this.state.workshopId,
       inn: values.inn,
       name: values.name,
       address: values.address,

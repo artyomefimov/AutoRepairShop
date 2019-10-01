@@ -37,9 +37,9 @@ public abstract class AbstractTest {
     );
 
     protected List<Customer> customerList = asList(
-            new Customer(1,"name1", "phone1", "address1", new Date(System.currentTimeMillis()), new Workshop()),
-            new Customer(2,"name2", "phone2", "address2", new Date(System.currentTimeMillis()), new Workshop()),
-            new Customer(3,"name3", "phone3", "address3", new Date(System.currentTimeMillis()), new Workshop())
+            new Customer(1L,"name1", "phone1", "address1", new Date(System.currentTimeMillis()), new Workshop()),
+            new Customer(2L,"name2", "phone2", "address2", new Date(System.currentTimeMillis()), new Workshop()),
+            new Customer(3L,"name3", "phone3", "address3", new Date(System.currentTimeMillis()), new Workshop())
     );
 
     protected List<Level> levelList = asList(

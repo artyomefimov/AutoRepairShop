@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import ObjectsTable from "./workshop/WorkshopTable";
+import WorkshopTable from "./workshop/WorkshopTable";
 import WorkshopDetailsPage from "./workshop/WorkshopDetailsPage";
 import * as Constants from "../Constants";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LevelTable from "./level/LevelTable";
 import LevelDetailsPage from "./level/LevelDetailsPage";
+import CustomerTable from "./customer/CustomerTable";
+import CustomerDetailsPage from "./customer/CustomerDetailsPage";
 
 class AutorepairApp extends Component {
   render() {
@@ -16,12 +18,12 @@ class AutorepairApp extends Component {
             <Route
               exact
               path="/"
-              render={props => <ObjectsTable {...props} />}
+              render={props => <WorkshopTable {...props} />}
             />
             <Route
               exact
               path="/workshops"
-              render={props => <ObjectsTable {...props} />}
+              render={props => <WorkshopTable {...props} />}
             />
             <Route
               path="/workshops/workshop/:id"
@@ -35,6 +37,15 @@ class AutorepairApp extends Component {
             <Route
               path="/levels/level/:id"
               render={props => <LevelDetailsPage {...props} />}
+            />
+            <Route
+              exact
+              path="/workshop/:workshopId/customers"
+              render={props => <CustomerTable {...props} />}
+            />
+            <Route
+              path="/customers/customer/:customerId"
+              render={props => <CustomerDetailsPage {...props} />}
             />
           </Switch>
         </div>

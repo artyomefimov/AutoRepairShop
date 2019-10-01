@@ -1,12 +1,14 @@
 package com.artyomefimov.database.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -17,7 +19,7 @@ public class Customer {
     private Long customerId;
 
     @Column(name = "customer_passport_num")
-    private Integer customerPassportNum;
+    private Long customerPassportNum;
 
     @Column(name = "name")
     private String name;
@@ -31,7 +33,6 @@ public class Customer {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "workshop_id", nullable = false)
     private Workshop workshop;
@@ -43,7 +44,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer customerPassportNum, String name, String phone, String address, Date birthDate, Workshop workshop) {
+    public Customer(Long customerPassportNum, String name, String phone, String address, Date birthDate, Workshop workshop) {
         this.customerPassportNum = customerPassportNum;
         this.name = name;
         this.phone = phone;
@@ -60,11 +61,11 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public Integer getCustomerPassportNum() {
+    public Long getCustomerPassportNum() {
         return customerPassportNum;
     }
 
-    public void setCustomerPassportNum(Integer customerPassportNum) {
+    public void setCustomerPassportNum(Long customerPassportNum) {
         this.customerPassportNum = customerPassportNum;
     }
 

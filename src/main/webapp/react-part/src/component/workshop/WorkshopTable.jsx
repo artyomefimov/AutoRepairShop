@@ -5,7 +5,7 @@ import PageName from "../PageName";
 import SuccessMessage from "../message/SuccessMessage";
 import * as Constants from "../../Constants";
 
-class ObjectsTable extends Component {
+class WorkshopTable extends Component {
   constructor(props) {
     super(props);
 
@@ -52,8 +52,11 @@ class ObjectsTable extends Component {
     alert(`openMastersByWorkshopId ${id}`);
   }
 
-  openCustomersByWorkshopId(id) {
-    alert(`openCustomersByWorkshopId ${id}`);
+  openCustomersByWorkshopId(workshopId, name) {
+    this.props.history.push({
+      pathname: `/workshop/${workshopId}/customers`,
+      search: `?workshop=${name}`
+    });
   }
 
   openLevels() {
@@ -104,7 +107,11 @@ class ObjectsTable extends Component {
               Добавить
             </button>
           </div>
-          <button className="btn btn-info" onClick={() => this.openLevels()} style={{ marginTop: "10px" }}>
+          <button
+            className="btn btn-info"
+            onClick={() => this.openLevels()}
+            style={{ marginTop: "10px" }}
+          >
             Квалификации
           </button>
         </div>
@@ -113,4 +120,4 @@ class ObjectsTable extends Component {
   }
 }
 
-export default ObjectsTable;
+export default WorkshopTable;

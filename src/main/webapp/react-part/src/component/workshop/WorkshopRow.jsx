@@ -18,8 +18,8 @@ class WorkshopRow extends Component {
     this.props.onOpenMastersClicked(id);
   }
 
-  openCustomersByWorkshopId(id) {
-    this.props.onOpenCustomersClicked(id);
+  openCustomersByWorkshopId(id, name) {
+    this.props.onOpenCustomersClicked(id, name);
   }
 
   openWorkshopDetails(id) {
@@ -61,7 +61,7 @@ class WorkshopRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openCustomersByWorkshopId(object.workshopId)}
+            onClick={() => this.openCustomersByWorkshopId(object.workshopId, object.name)}
           >
             Клиенты
           </button>
