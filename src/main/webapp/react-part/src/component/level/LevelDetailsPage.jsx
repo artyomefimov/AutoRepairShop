@@ -3,9 +3,9 @@ import PageName from "../PageName";
 import * as Constants from "../../Constants";
 import AutorepairService from "../../service/AutorepairService";
 import { Formik, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import ErrorMessageBlock from "../message/ErrorMessageBlock";
 import BackButton from "../BackButton";
+import * as Validation from "../../Validation"
 
 class LevelDetailsPage extends Component {
   constructor(props) {
@@ -77,16 +77,7 @@ class LevelDetailsPage extends Component {
             errorMessage,
             isNew
           }}
-          validationSchema={Yup.object().shape({
-            name: Yup.string()
-              .trim()
-              .min(3, "Название квалификации должно иметь минимум 3 символа!")
-              .max(
-                60,
-                "Название квалификации должно иметь максимум 60 символов!"
-              )
-              .required("Введите название квалификации!")
-          })}
+          validationSchema={Validation.levelSchema}
           onSubmit={this.onSubmit}
           enableReinitialize={true}
           render={({ handleSubmit, values }) => (
