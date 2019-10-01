@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import PageName from "../PageName";
 import * as Constants from "../../Constants";
-import WorkshopService from "../../service/WorkshopService";
+import AutorepairService from "../../service/AutorepairService";
 import { Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import ErrorMessageBlock from "../message/ErrorMessageBlock";
+import BackButton from "../BackButton";
 
 class WorkshopDetailsPage extends Component {
   constructor(props) {
@@ -16,8 +17,9 @@ class WorkshopDetailsPage extends Component {
       details: null,
       isNew: false
     };
-    this.requestObjectsDetails = this.requestObjectsDetails.bind(this);
+    this.requestWorkshopDetails = this.requestWorkshopDetails.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.goBack = this.goBack.bind(this);
   }
 
   componentDidMount() {
@@ -25,13 +27,19 @@ class WorkshopDetailsPage extends Component {
       return;
     }
     this.setState({ isNew: false });
-    this.requestObjectsDetails(this.state.id);
+    this.requestWorkshopDetails(this.state.id);
   }
 
-  requestObjectsDetails(id) {
-    WorkshopService.getWorkshop(id).then(response => {
-      this.setState({ details: response.data });
-    });
+  requestWorkshopDetails(id) {
+    AutorepairService.getWorkshop(id)
+      .then(response => {
+        this.setState({ details: response.data });
+      })
+      .catch(e => this.setState({ errorMessage: e.message }));
+  }
+
+  goBack() {
+    this.props.history.push("/workshops");
   }
 
   onSubmit(values) {
@@ -46,13 +54,13 @@ class WorkshopDetailsPage extends Component {
     };
 
     if (workshop.workshopId === "-1") {
-      WorkshopService.createWorkshop(workshop)
+      AutorepairService.createWorkshop(workshop)
         .then(() => {
           this.props.history.push("/workshops");
         })
         .catch(e => this.setState({ errorMessage: e.message }));
     } else {
-      WorkshopService.updateWorkshop(workshop.workshopId, workshop)
+      AutorepairService.updateWorkshop(workshop.workshopId, workshop)
         .then(() => {
           this.props.history.push("/workshops");
         })
@@ -94,7 +102,7 @@ class WorkshopDetailsPage extends Component {
             name: Yup.string()
               .trim()
               .min(3, "Название мастерской должно иметь минимум 3 символа!")
-              .max(30, "Название мастерской должно иметь максимум 30 символов!")
+              .max(30, "Название мастерской должно иметь максимум 60 символов!")
               .required("Введите название мастерской!"),
             address: Yup.string()
               .trim()
@@ -102,18 +110,23 @@ class WorkshopDetailsPage extends Component {
               .max(60, "Адрес мастерской должно иметь максимум 60 символов!")
               .required("Введите адрес мастерской!"),
             openHours: Yup.string().required("Введите время открытия!"),
-            closeHours: Yup.string()
-              .required("Введите время закрытия!")
-              .test(
-                "test closeHours",
-                "Время закрытия должно быть позднее времени",
-                value => {
-                  let openHoursValue = Yup.ref("openHours");
-                  let { openHH, openMM } = openHoursValue.split(":");
-                  let { closeHH, closeMM } = value.split(":");
-                  return openHH <= closeHH && openMM < closeMM;
-                }
+            closeHours: Yup.string().required("Введите время закрытия!"),
+            ownerName: Yup.string()
+              .trim()
+              .max(
+                60,
+                "Имя владельца мастерской должно иметь максимум 60 символов!"
               )
+            // .test(
+            //   "test closeHours",
+            //   "Время закрытия должно быть позднее времени",
+            //   value => {
+            //     let openHoursValue = Yup.ref("openHours");
+            //     let { openHH, openMM } = openHoursValue.split(":");
+            //     let { closeHH, closeMM } = value.split(":");
+            //     return openHH <= closeHH && openMM < closeMM;
+            //   }
+            // )
           })}
           enableReinitialize={true}
           render={({ handleSubmit, values }) => (
@@ -204,6 +217,7 @@ class WorkshopDetailsPage extends Component {
             </form>
           )}
         />
+        <BackButton goBackAction={this.goBack}/>
       </div>
     );
   }
