@@ -56,5 +56,10 @@ export function getDayMonthAndYearFromDate(date) {
 }
 
 export function resolveParentObjectName(parentObjectName) {
-  return parentObjectName.substring(parentObjectName.indexOf('='), parentObjectName.length)
+  return parentObjectName.substring(parentObjectName.indexOf('='), parentObjectName.length);
+}
+
+export function resolveParentObjectType(url) {
+  var parts = url.split('/');
+  return parts[1];
 }

@@ -12,7 +12,7 @@ class CustomerTable extends Component {
     super(props);
 
     this.state = {
-      workshopName: this.props.location.search,//Utils.resolveParentObjectName(this.props.location.search),
+      //workshopName: this.props.location.search,
       workshopId: this.props.match.params.workshopId,
       objects: [],
       message: null
@@ -41,10 +41,10 @@ class CustomerTable extends Component {
 
   deleteCustomer(customerId) {
     if (window.confirm("Вы действительно хотите удалить этого клиента?"))
-      AutorepairService.deleteLevel(customerId)
+      AutorepairService.deleteCustomer(customerId)
         .then(() => {
           this.setState({ message: "Клиент успешно удален!" });
-          this.requestCustomersByWorkshopId();
+          this.requestCustomersByWorkshopId(this.state.workshopId);
         })
         .catch(e => this.setState({ message: e.message }));
   }
@@ -67,7 +67,7 @@ class CustomerTable extends Component {
 
   render() {
     let key = 0;
-    let pageName = Constants.customerListPageName;// + this.state.workshopName
+    let pageName = Constants.customerListPageName;
 
     return (
       <>

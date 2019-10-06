@@ -24,12 +24,10 @@ public class Master {
     @Column(name = "phone_num")
     private String phone;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "level_id", nullable = false)
     private Level level;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "workshop_id", nullable = false)
     private Workshop workshop;

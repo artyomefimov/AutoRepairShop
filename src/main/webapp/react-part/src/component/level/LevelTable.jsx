@@ -49,7 +49,7 @@ class LevelTable extends Component {
   }
 
   openMastersByLevelId(id) {
-    alert(`openMastersByLevelId ${id}`);
+    this.props.history.push(`/level/${id}/masters`)
   }
 
   createLevel() {

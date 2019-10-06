@@ -7,6 +7,7 @@ import LevelTable from "./level/LevelTable";
 import LevelDetailsPage from "./level/LevelDetailsPage";
 import CustomerTable from "./customer/CustomerTable";
 import CustomerDetailsPage from "./customer/CustomerDetailsPage";
+import MasterTable from "./master/MasterTable";
 
 class AutorepairApp extends Component {
   render() {
@@ -46,6 +47,16 @@ class AutorepairApp extends Component {
             <Route
               path="/customers/customer/:customerId"
               render={props => <CustomerDetailsPage {...props} />}
+            />
+            <Route
+              exact
+              path="/workshop/:parentId/masters"
+              render={props => <MasterTable {...props} />}
+            />
+            <Route
+              exact
+              path="/level/:parentId/masters"
+              render={props => <MasterTable {...props} />}
             />
           </Switch>
         </div>
