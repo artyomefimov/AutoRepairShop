@@ -56,7 +56,21 @@ export function getDayMonthAndYearFromDate(date) {
 }
 
 export function resolveParentObjectName(parentObjectName) {
-  return parentObjectName.substring(parentObjectName.indexOf('='), parentObjectName.length);
+  return "\"" + decodeURI(parentObjectName.substring(parentObjectName.indexOf('=') + 1, parentObjectName.length)) + "\"";
+}
+
+export function resolveParentObjectTypeAndName(parentObjectName, url) {
+  var parentType = resolveParentObjectType(url)
+  var type = ""
+  if (parentType === "workshop") {
+    type = " мастерской "
+  } else if (parentType === "level") {
+    type = " квалификации "
+  }
+  else if (parentType === "customer") {
+    type = " клиента "
+  }
+  return ` ${type}"${decodeURI(parentObjectName.substring(parentObjectName.indexOf('=') + 1, parentObjectName.length))}"`;
 }
 
 export function resolveParentObjectType(url) {

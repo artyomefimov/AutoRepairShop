@@ -12,7 +12,7 @@ class CustomerTable extends Component {
     super(props);
 
     this.state = {
-      //workshopName: this.props.location.search,
+      workshopName: Utils.resolveParentObjectName(this.props.location.search),
       workshopId: this.props.match.params.workshopId,
       objects: [],
       message: null
@@ -67,7 +67,7 @@ class CustomerTable extends Component {
 
   render() {
     let key = 0;
-    let pageName = Constants.customerListPageName;
+    let pageName = Constants.customerListPageName + this.state.workshopName;
 
     return (
       <>

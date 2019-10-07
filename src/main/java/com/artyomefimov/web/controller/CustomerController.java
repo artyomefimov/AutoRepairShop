@@ -63,7 +63,7 @@ public class CustomerController {
     private Customer resolveCustomerFromJson(String customerJson) throws Exception {
         Customer customer = objectMapper.readValue(customerJson, Customer.class);
         Long workshopId = Utils.resolveObjectById(objectMapper, customerJson, "workshopId");
-        if (workshopId != null)
+        if (workshopId != null) // todo перенести бизнес-логику в сервисы
             workshopRepository.findById(workshopId).ifPresent(customer::setWorkshop);
         return customer;
     }

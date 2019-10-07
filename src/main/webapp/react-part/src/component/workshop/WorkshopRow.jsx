@@ -14,8 +14,8 @@ class WorkshopRow extends Component {
     this.props.onDeleteClicked(id);
   }
 
-  openMastersByWorkshopId(id) {
-    this.props.onOpenMastersClicked(id);
+  openMastersByWorkshopId(id, name) {
+    this.props.onOpenMastersClicked(id, name);
   }
 
   openCustomersByWorkshopId(id, name) {
@@ -53,7 +53,7 @@ class WorkshopRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openMastersByWorkshopId(object.workshopId)}
+            onClick={() => this.openMastersByWorkshopId(object.workshopId, object.name)}
           >
             Мастера
           </button>

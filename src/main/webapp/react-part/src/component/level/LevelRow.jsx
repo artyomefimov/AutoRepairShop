@@ -13,8 +13,8 @@ class LevelRow extends Component {
     this.props.onDeleteClicked(id);
   }
 
-  openMastersByLevelId(id) {
-    this.props.onOpenMastersClicked(id);
+  openMastersByLevelId(id, name) {
+    this.props.onOpenMastersClicked(id, name);
   }
 
   openLevelDetails(id) {
@@ -33,7 +33,7 @@ class LevelRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openMastersByLevelId(object.levelId)}
+            onClick={() => this.openMastersByLevelId(object.levelId, object.name)}
           >
             Мастера
           </button>

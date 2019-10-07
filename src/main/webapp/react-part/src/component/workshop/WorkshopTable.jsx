@@ -48,8 +48,11 @@ class WorkshopTable extends Component {
     this.props.history.push(`/workshops/workshop/${id}`);
   }
 
-  openMastersByWorkshopId(workshopId) {
-    this.props.history.push(`/workshop/${workshopId}/masters`)
+  openMastersByWorkshopId(workshopId, name) {
+    this.props.history.push({
+      pathname: `/workshop/${workshopId}/masters`,
+      search: `?workshop=${name}`
+    });
   }
 
   openCustomersByWorkshopId(workshopId, name) {

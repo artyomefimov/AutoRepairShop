@@ -48,8 +48,11 @@ class LevelTable extends Component {
     this.props.history.push(`/levels/level/${id}`);
   }
 
-  openMastersByLevelId(id) {
-    this.props.history.push(`/level/${id}/masters`)
+  openMastersByLevelId(id, name) {
+    this.props.history.push({
+      pathname: `/level/${id}/masters`,
+      search: `?level=${name}`
+    });
   }
 
   createLevel() {
@@ -100,7 +103,7 @@ class LevelTable extends Component {
               Добавить
             </button>
           </div>
-          <BackButton goBackAction={this.goBack}/>
+          <BackButton goBackAction={this.goBack} />
         </div>
       </>
     );

@@ -12,7 +12,7 @@ class MasterTable extends Component {
     super(props);
 
     this.state = {
-      //parentName: this.props.location.search,
+      parentName: Utils.resolveParentObjectTypeAndName(this.props.location.search, this.props.match.url),
       parentId: this.props.match.params.parentId,
       parentType: Utils.resolveParentObjectType(this.props.match.url),
       objects: [],
@@ -78,7 +78,7 @@ class MasterTable extends Component {
 
   render() {
     let key = 0;
-    let pageName = Constants.masterListPageName;
+    let pageName = Constants.masterListPageName + this.state.parentName;
 
     return (
       <>
