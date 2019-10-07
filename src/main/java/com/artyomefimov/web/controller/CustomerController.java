@@ -1,20 +1,15 @@
 package com.artyomefimov.web.controller;
 
-import com.artyomefimov.Utils;
 import com.artyomefimov.database.model.Customer;
 import com.artyomefimov.database.repository.CustomerRepository;
-import com.artyomefimov.database.repository.WorkshopRepository;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.artyomefimov.web.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,16 +17,13 @@ import java.util.Optional;
 @RestController
 public class CustomerController {
     private CustomerRepository customerRepository;
-    private WorkshopRepository workshopRepository;
-    private ObjectMapper objectMapper;
+    private CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerRepository customerRepository, WorkshopRepository workshopRepository, ObjectMapper objectMapper) {
+    public CustomerController(CustomerRepository customerRepository, CustomerService customerService) {
         this.customerRepository = customerRepository;
-        this.workshopRepository = workshopRepository;
-        this.objectMapper = objectMapper;
+        this.customerService = customerService;
     }
-
 
     @GetMapping(value = "**/workshop/{workshopId}/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Customer>> getCustomersByWorkshopId(@PathVariable Long workshopId) {
@@ -45,7 +37,7 @@ public class CustomerController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Customer> createCustomer(@RequestBody String customerJson) throws Exception {
-        Customer customer = resolveCustomerFromJson(customerJson);
+        Customer customer = customerService.resolveCustomerFromJson(customerJson);
         return new ResponseEntity<>(
                 customerRepository.save(customer),
                 HttpStatus.CREATED);
@@ -54,18 +46,10 @@ public class CustomerController {
     @PutMapping(value = "**/customers/customer/{customerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long customerId,
                                                    @RequestBody String customerJson) throws Exception {
-        Customer customer = resolveCustomerFromJson(customerJson);
+        Customer customer = customerService.resolveCustomerFromJson(customerJson);
         return new ResponseEntity<>(
                 customerRepository.save(customer),
                 HttpStatus.OK);
-    }
-
-    private Customer resolveCustomerFromJson(String customerJson) throws Exception {
-        Customer customer = objectMapper.readValue(customerJson, Customer.class);
-        Long workshopId = Utils.resolveObjectById(objectMapper, customerJson, "workshopId");
-        if (workshopId != null) // todo перенести бизнес-логику в сервисы
-            workshopRepository.findById(workshopId).ifPresent(customer::setWorkshop);
-        return customer;
     }
 
     @GetMapping(value = "**/customers/customer/{customerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

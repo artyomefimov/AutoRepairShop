@@ -25,7 +25,7 @@ class MasterRow extends Component {
       render() {
         let object = this.props.object;
         let key = 0;
-        let {series, num} = Utils.splitPassportNumOnSeriesAndNum(object.customerPassportNum)
+        let {series, num} = Utils.splitPassportNumOnSeriesAndNum(object.masterPassportNum)
     
         return (
           <tr className="top-margin" key={object.masterId}>

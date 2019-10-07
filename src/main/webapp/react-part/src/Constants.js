@@ -1,12 +1,12 @@
 // page names
 export const workshopListPageName = "Мастерские";
-export const workshopDetailPageName = "Мастерская";
+export const workshopDetailPageName = "Редактировать мастерскую";
 export const levelListPageName = "Квалификации";
-export const levelDetailPageName = "Квалификация";
+export const levelDetailPageName = "Редактировать квалификацию";
 export const customerListPageName = "Клиенты мастерской ";
-export const customerDetailsPageName = "Клиент";
+export const customerDetailsPageName = "Редактировать клиента";
 export const masterListPageName = "Мастера";
-export const masterDetailsPageName = "Мастер";
+export const masterDetailsPageName = "Редактировать мастера";
 
 // table headers
 export const workshopListTableHeaders = [

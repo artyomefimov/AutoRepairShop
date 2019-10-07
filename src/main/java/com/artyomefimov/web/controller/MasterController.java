@@ -2,6 +2,7 @@ package com.artyomefimov.web.controller;
 
 import com.artyomefimov.database.model.Master;
 import com.artyomefimov.database.repository.MasterRepository;
+import com.artyomefimov.web.service.MasterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +17,12 @@ import java.util.Optional;
 @RestController
 public class MasterController {
     private MasterRepository masterRepository;
+    private MasterService masterService;
 
     @Autowired
-    public MasterController(MasterRepository masterRepository) {
+    public MasterController(MasterRepository masterRepository, MasterService masterService) {
         this.masterRepository = masterRepository;
+        this.masterService = masterService;
     }
 
     @GetMapping(value = "**/workshop/{workshopId}/masters", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -42,7 +44,8 @@ public class MasterController {
             value = "**/masters/master",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Master> createMaster(@RequestBody @Valid Master master) {
+    public ResponseEntity<Master> createMaster(@RequestBody String masterJson) throws Exception {
+        Master master = masterService.resolveMasterFromJson(masterJson);
         return new ResponseEntity<>(
                 masterRepository.save(master),
                 HttpStatus.CREATED);
@@ -50,7 +53,8 @@ public class MasterController {
 
     @PutMapping(value = "**/masters/master/{masterId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Master> updateMaster(@PathVariable Long masterId,
-                                               @RequestBody @Valid Master master) {
+                                               @RequestBody String masterJson) throws Exception {
+        Master master = masterService.resolveMasterFromJson(masterJson);
         return new ResponseEntity<>(
                 masterRepository.save(master),
                 HttpStatus.OK);

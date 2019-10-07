@@ -2,6 +2,7 @@ package com.artyomefimov.web.controller;
 
 import com.artyomefimov.database.model.Car;
 import com.artyomefimov.database.repository.CarRepository;
+import com.artyomefimov.web.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,10 +17,12 @@ import java.util.Optional;
 @RestController
 public class CarController {
     private CarRepository carRepository;
+    private CarService carService;
 
     @Autowired
-    public CarController(CarRepository carRepository) {
+    public CarController(CarRepository carRepository, CarService carService) {
         this.carRepository = carRepository;
+        this.carService = carService;
     }
 
     @GetMapping(value = "**/customer/{customerId}/cars", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -41,7 +43,8 @@ public class CarController {
             value = "**/cars/car",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Car> createCar(@RequestBody @Valid Car car) {
+    public ResponseEntity<Car> createCar(@RequestBody String carJson) throws Exception {
+        Car car = carService.resolveCarFromJson(carJson);
         return new ResponseEntity<>(
                 carRepository.save(car),
                 HttpStatus.CREATED);
@@ -49,7 +52,8 @@ public class CarController {
 
     @PutMapping(value = "**/cars/car/{carId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Car> updateCar(@PathVariable Long carId,
-                                         @RequestBody @Valid Car car) {
+                                         @RequestBody String carJson) throws Exception {
+        Car car = carService.resolveCarFromJson(carJson);
         return new ResponseEntity<>(
                 carRepository.save(car),
                 HttpStatus.OK);

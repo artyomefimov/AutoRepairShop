@@ -50,7 +50,7 @@ class MasterTable extends Component {
     if (window.confirm("Вы действительно хотите удалить этого мастера?"))
       AutorepairService.deleteMaster(masterId)
         .then(() => {
-          this.setState({ message: "Клиент успешно удален!" });
+          this.setState({ message: "Мастер успешно удален!" });
           this.requestMastersByParentId(this.state.parentId);
         })
         .catch(e => this.setState({ message: e.message }));

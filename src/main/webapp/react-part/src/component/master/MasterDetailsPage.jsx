@@ -9,29 +9,32 @@ import * as Validation from "../../Validation";
 import * as Utils from "../../utils/Utils";
 import { Select } from "antd";
 
-class CustomerDetailsPage extends Component {
+class MasterDetailsPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       errorMessage: "",
-      customerId: this.props.match.params.customerId,
+      masterId: this.props.match.params.masterId,
       details: null,
       workshops: null,
+      levels: null,
       isNew: false
     };
-    this.requestCustomerDetails = this.requestCustomerDetails.bind(this);
+    this.requestMasterDetails = this.requestMasterDetails.bind(this);
     this.requestAllWorkshops = this.requestAllWorkshops.bind(this);
+    this.requestAllLevels = this.requestAllLevels.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.goBack = this.goBack.bind(this);
   }
 
   componentDidMount() {
-    if (this.state.customerId !== "-1") {
+    if (this.state.masterId !== "-1") {
       this.setState({ isNew: false });
-      this.requestCustomerDetails(this.state.customerId);
+      this.requestMasterDetails(this.state.masterId);
     }
     this.requestAllWorkshops();
+    this.requestAllLevels();
   }
 
   requestAllWorkshops() {
@@ -42,8 +45,16 @@ class CustomerDetailsPage extends Component {
       .catch(e => this.setState({ errorMessage: e.message }));
   }
 
-  requestCustomerDetails(id) {
-    AutorepairService.getCustomer(id)
+  requestAllLevels() {
+    AutorepairService.getAllLevels()
+      .then(response => {
+        this.setState({ levels: response.data });
+      })
+      .catch(e => this.setState({ errorMessage: e.message }));
+  }
+
+  requestMasterDetails(id) {
+    AutorepairService.getMaster(id)
       .then(response => {
         this.setState({ details: response.data });
       })
@@ -55,28 +66,31 @@ class CustomerDetailsPage extends Component {
   }
 
   onSubmit(values) {
-    let customer = {
-      customerId: this.state.customerId,
-      customerPassportNum: parseInt(values.series + "" + values.num),
+    let master = {
+      masterId: this.state.masterId,
+      masterPassportNum: parseInt(values.series + "" + values.num),
       name: values.name,
       phone: values.phone,
-      address: values.address,
-      birthDate: values.birthDate,
       workshopId: values.workshopId
         ? values.workshopId
         : this.state.details
         ? this.state.details.workshop.workshopId
-        : this.state.workshops[0].workshopId
+        : this.state.workshops[0].workshopId,
+      levelId: values.levelId
+        ? values.levelId
+        : this.state.details
+        ? this.state.details.level.levelId
+        : this.state.levels[0].levelId
     };
 
-    if (customer.customerId === "-1") {
-      AutorepairService.createCustomer(customer)
+    if (master.masterId === "-1") {
+      AutorepairService.createMaster(master)
         .then(() => {
           this.goBack();
         })
         .catch(e => this.setState({ errorMessage: e.message }));
     } else {
-      AutorepairService.updateCustomer(customer.customerId, customer)
+      AutorepairService.updateMaster(master.masterId, master)
         .then(() => {
           this.goBack();
         })
@@ -87,39 +101,37 @@ class CustomerDetailsPage extends Component {
   render() {
     let { series, num } = this.state.details
       ? Utils.splitPassportNumOnSeriesAndNum(
-          this.state.details.customerPassportNum
+          this.state.details.masterPassportNum
         )
       : { series: "", num: "" };
     let name = this.state.details ? this.state.details.name : "";
     let phone = this.state.details ? this.state.details.phone : "";
-    let address = this.state.details ? this.state.details.address : "";
-    let birthDate = this.state.details
-      ? Utils.getDayMonthAndYearFromDate(new Date(this.state.details.birthDate))
-      : "";
     let workshops = this.state.workshops ? this.state.workshops : [];
+    let levels = this.state.levels ? this.state.levels : [];
     let workshopId = this.state.details
       ? this.state.details.workshop.workshopId
       : "";
+    let levelId = this.state.details ? this.state.details.level.levelId : "";
     let errorMessage = this.state.errorMessage;
     let isNew = this.state.isNew;
 
     return (
       <div className="container">
-        <PageName pageName={Constants.customerDetailsPageName} />
+        <PageName pageName={Constants.masterDetailsPageName} />
         <Formik
           initialValues={{
             series,
             num,
             name,
             phone,
-            address,
-            birthDate,
             workshops,
+            levels,
             workshopId,
+            levelId,
             errorMessage,
             isNew
           }}
-          validationSchema={Validation.customerSchema}
+          validationSchema={Validation.masterSchema}
           onSubmit={this.onSubmit}
           enableReinitialize={true}
           render={({ setFieldValue, handleSubmit, values }) => (
@@ -182,34 +194,6 @@ class CustomerDetailsPage extends Component {
                 />
               </fieldset>
               <fieldset className="form-group">
-                <label>Адрес</label>
-                <Field
-                  className="form-control"
-                  type="text"
-                  id="address"
-                  value={values.isNew ? "" : values.address}
-                />
-                <ErrorMessage
-                  name="address"
-                  component="div"
-                  className="alert alert-warning"
-                />
-              </fieldset>
-              <fieldset className="form-group">
-                <label>Дата рождения</label>
-                <Field
-                  className="form-control"
-                  type="date"
-                  id="birthDate"
-                  value={values.isNew ? "" : values.birthDate}
-                />
-                <ErrorMessage
-                  name="birthDate"
-                  component="div"
-                  className="alert alert-warning"
-                />
-              </fieldset>
-              <fieldset className="form-group">
                 <label>Автомастерская</label>
                 <Field
                   name="workshopId"
@@ -231,6 +215,28 @@ class CustomerDetailsPage extends Component {
                   )}
                 />
               </fieldset>
+              <fieldset className="form-group">
+                <label>Квалификация</label>
+                <Field
+                  name="levelId"
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      onChange={value => setFieldValue("levelId", value)}
+                      value={values.levelId}
+                    >
+                      {levels.map(level => (
+                        <Select.Option
+                          value={level.levelId}
+                          selected={values.levelId === level.levelId}
+                        >
+                          {level.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  )}
+                />
+              </fieldset>
               <button className="btn btn-success" type="submit">
                 Сохранить
               </button>
@@ -243,4 +249,4 @@ class CustomerDetailsPage extends Component {
   }
 }
 
-export default CustomerDetailsPage;
+export default MasterDetailsPage;

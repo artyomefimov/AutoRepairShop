@@ -49,8 +49,8 @@ public abstract class AbstractTest {
     );
 
     protected List<Master> masterList = asList(
-            new Master(1,"name1", "phone1", new Level(), new Workshop()),
-            new Master(2,"name2", "phone2", new Level(), new Workshop()),
-            new Master(3,"name3", "phone3", new Level(), new Workshop())
+            new Master(1L,"name1", "phone1", new Level(), new Workshop()),
+            new Master(2L,"name2", "phone2", new Level(), new Workshop()),
+            new Master(3L,"name3", "phone3", new Level(), new Workshop())
     );
 }

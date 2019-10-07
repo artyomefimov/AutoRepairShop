@@ -10,8 +10,8 @@ public class Utils {
         return timeAsString;
     }
 
-    public static Long resolveObjectById(ObjectMapper objectMapper, String customerJson, String jsonNodeName) throws Exception {
-        JsonNode jsonNode = objectMapper.readTree(customerJson);
+    public static Long resolveJsonNodeValue(ObjectMapper objectMapper, String json, String jsonNodeName) throws Exception {
+        JsonNode jsonNode = objectMapper.readTree(json);
         JsonNode entityId = jsonNode.get(jsonNodeName);
         if (!"undefined".equals(entityId.asText())) {
             return entityId.asLong();

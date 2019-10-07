@@ -68,7 +68,7 @@ class AutorepairService {
     }
 
     getMastersByLevelId(levelId) {
-        return axios.get(`${AUTOREPAIR_API_URL}/workshop/${levelId}/masters`)
+        return axios.get(`${AUTOREPAIR_API_URL}/level/${levelId}/masters`)
     }
 
     deleteMaster(masterId) {

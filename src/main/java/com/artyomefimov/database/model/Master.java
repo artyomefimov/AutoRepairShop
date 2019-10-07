@@ -16,7 +16,7 @@ public class Master {
     private Long masterId;
 
     @Column(name = "master_passport_num")
-    private Integer masterPassportNum;
+    private Long masterPassportNum;
 
     @Column(name = "name")
     private String name;
@@ -39,7 +39,7 @@ public class Master {
     public Master() {
     }
 
-    public Master(Integer masterPassportNum, String name, String phone, Level level, Workshop workshop) {
+    public Master(Long masterPassportNum, String name, String phone, Level level, Workshop workshop) {
         this.masterPassportNum = masterPassportNum;
         this.name = name;
         this.phone = phone;
@@ -55,11 +55,11 @@ public class Master {
         this.masterId = masterId;
     }
 
-    public Integer getMasterPassportNum() {
+    public Long getMasterPassportNum() {
         return masterPassportNum;
     }
 
-    public void setMasterPassportNum(Integer masterPassportNum) {
+    public void setMasterPassportNum(Long masterPassportNum) {
         this.masterPassportNum = masterPassportNum;
     }
 

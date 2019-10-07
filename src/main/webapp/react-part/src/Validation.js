@@ -21,16 +21,6 @@ export const workshopSchema = Yup.object().shape({
   ownerName: Yup.string()
     .trim()
     .max(60, "Имя владельца мастерской должно иметь максимум 60 символов!")
-  // .test(
-  //   "test closeHours",
-  //   "Время закрытия должно быть позднее времени",
-  //   value => {
-  //     let openHoursValue = Yup.ref("openHours");
-  //     let { openHH, openMM } = openHoursValue.split(":");
-  //     let { closeHH, closeMM } = value.split(":");
-  //     return openHH <= closeHH && openMM < closeMM;
-  //   }
-  // )
 });
 
 export const levelSchema = Yup.object().shape({
@@ -44,12 +34,12 @@ export const levelSchema = Yup.object().shape({
 export const customerSchema = Yup.object().shape({
   series: Yup.number()
     .required("Введите серию паспорта клиента!")
-    .min(1000, "Серия паспорта начинается с 1000!")
-    .max(9999, "Максимальная серия паспорта - 9999!"),
+    .min(1000, "Серия паспорта имеет 4 цифры!")
+    .max(9999, "Серия паспорта имеет 4 цифры!"),
   num: Yup.number()
     .required("Введите номер паспорта клиента!")
-    .min(100000, "Серия паспорта начинается с 100000!")
-    .max(999999, "Максимальная серия паспорта - 999999!"),
+    .min(100000, "Номер паспорта имеет 6 цифр!")
+    .max(999999, "Номер паспорта имеет 6 цифр!"),
   name: Yup.string()
     .trim()
     .min(3, "Имя клиента должно иметь минимум 3 символа!")
@@ -57,9 +47,28 @@ export const customerSchema = Yup.object().shape({
     .required("Введите имя клиента!"),
   phone: Yup.number()
     .required("Введите номер телефона клиента!")
-    .min(1000000000, "Номера телефонов начинаются с 1000000000!")
-    .max(9999999999, "Максимально возможный номер телефона - 9999999999!"),
+    .min(1000000000, "Номер телефона должен иметь 10 цифр!")
+    .max(9999999999, "Номер телефона должен иметь 10 цифр!"),
   address: Yup.string()
     .trim()
     .max(60, "Адрес клиента должен иметь максимум 60 символов!")
+});
+export const masterSchema = Yup.object().shape({
+  series: Yup.number()
+    .required("Введите серию паспорта мастера!")
+    .min(1000, "Серия паспорта имеет 4 цифры!")
+    .max(9999, "Серия паспорта имеет 4 цифры!"),
+  num: Yup.number()
+    .required("Введите номер паспорта мастера!")
+    .min(100000, "Номер паспорта имеет 6 цифр!")
+    .max(999999, "Номер паспорта имеет 6 цифр!"),
+  name: Yup.string()
+    .trim()
+    .min(3, "Имя мастера должно иметь минимум 3 символа!")
+    .max(60, "Имя мастера должно иметь максимум 60 символов!")
+    .required("Введите имя мастера!"),
+  phone: Yup.number()
+    .required("Введите номер телефона мастера!")
+    .min(1000000000, "Номер телефона должен иметь 10 цифр!")
+    .max(9999999999, "Номер телефона должен иметь 10 цифр!")
 });
