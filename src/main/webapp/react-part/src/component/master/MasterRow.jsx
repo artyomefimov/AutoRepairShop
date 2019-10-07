@@ -14,8 +14,8 @@ class MasterRow extends Component {
         this.props.onDeleteClicked(customerId);
       }
     
-      openCarsByMasterId(customerId) {
-        this.props.onOpenCarsClicked(customerId);
+      openCarsByMasterId(customerId, name) {
+        this.props.onOpenCarsClicked(customerId, name);
       }
     
       openMasterDetails(customerId) {
@@ -41,7 +41,7 @@ class MasterRow extends Component {
             <td>
               <button
                 className="btn btn-info"
-                onClick={() => this.openCarsByMasterId(object.masterId)}
+                onClick={() => this.openCarsByMasterId(object.masterId, object.name)}
               >
                 Автомобили
               </button>

@@ -53,8 +53,11 @@ class CustomerTable extends Component {
     this.props.history.push(`/customers/customer/${customerId}`);
   }
 
-  openCarsByCustomerId(customerId) {
-    alert(`openMastersByLevelId ${customerId}`);
+  openCarsByCustomerId(customerId, name) {
+    this.props.history.push({
+      pathname: `/customer/${customerId}/cars`,
+      search: `?customer=${name}`
+    });
   }
 
   createCustomer() {

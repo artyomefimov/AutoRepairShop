@@ -86,6 +86,30 @@ class AutorepairService {
     createMaster(master) {
         return axios.post(`${AUTOREPAIR_API_URL}/masters/master`, master)
     }
+
+    getCarsByMasterId(masterId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/master/${masterId}/cars`)
+    }
+
+    getCarsByCustomerId(customerId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/customer/${customerId}/cars`)
+    }
+
+    deleteCar(carId) {
+        return axios.delete(`${AUTOREPAIR_API_URL}/cars/car/${carId}`)
+    }
+
+    getCar(carId) {
+        return axios.get(`${AUTOREPAIR_API_URL}/cars/car/${carId}`)
+    }
+
+    updateCar(carId, car) {
+        return axios.put(`${AUTOREPAIR_API_URL}/cars/car/${carId}`, car)
+    }
+
+    createCar(car) {
+        return axios.post(`${AUTOREPAIR_API_URL}/cars/car`, car)
+    }
 } 
 
 export default new AutorepairService()

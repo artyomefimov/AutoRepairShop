@@ -14,8 +14,8 @@ class CustomerRow extends Component {
     this.props.onDeleteClicked(customerId);
   }
 
-  openCarsByCustomerId(customerId) {
-    this.props.onOpenCarsClicked(customerId);
+  openCarsByCustomerId(customerId, name) {
+    this.props.onOpenCarsClicked(customerId, name);
   }
 
   openCustomerDetails(customerId) {
@@ -48,7 +48,7 @@ class CustomerRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openCarsByCustomerId(object.customerId)}
+            onClick={() => this.openCarsByCustomerId(object.customerId, object.name)}
           >
             Автомобили
           </button>

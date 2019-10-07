@@ -60,8 +60,12 @@ class MasterTable extends Component {
     this.props.history.push(`/masters/master/${masterId}`);
   }
 
-  openCarsByMasterId(masterId) {
-    alert(`openMastersByLevelId ${masterId}`);
+  openCarsByMasterId(masterId, name) {
+    this.props.history.push({
+      pathname: `/master/${masterId}/cars`,
+      // previousLocation: `?${this.state.parentType}=${this.state.parentId}`,
+      search: `?master=${name}`
+    });
   }
 
   createMaster() {

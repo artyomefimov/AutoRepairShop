@@ -7,6 +7,8 @@ export const customerListPageName = "Клиенты мастерской ";
 export const customerDetailsPageName = "Редактировать клиента";
 export const masterListPageName = "Мастера";
 export const masterDetailsPageName = "Редактировать мастера";
+export const carListPageName = "Автомобили";
+export const carDetailsPageName = "Редактировать автомобиль"
 
 // table headers
 export const workshopListTableHeaders = [
@@ -37,6 +39,15 @@ export const masterListTableHeaders = [
   "Имя",
   "Номер телефона",
   "",
+  "",
+  ""
+];
+export const carListTableHeaders = [
+  "Номер автомобиля",
+  "Марка",
+  "Модель",
+  "Тип поломки",
+  "Пробег",
   "",
   ""
 ];

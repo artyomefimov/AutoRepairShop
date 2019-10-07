@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import WorkshopTable from "./workshop/WorkshopTable";
 import WorkshopDetailsPage from "./workshop/WorkshopDetailsPage";
-import * as Constants from "../Constants";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LevelTable from "./level/LevelTable";
 import LevelDetailsPage from "./level/LevelDetailsPage";
@@ -9,6 +8,8 @@ import CustomerTable from "./customer/CustomerTable";
 import CustomerDetailsPage from "./customer/CustomerDetailsPage";
 import MasterTable from "./master/MasterTable";
 import MasterDetailsPage from "./master/MasterDetailsPage";
+import CarTable from "./car/CarTable";
+import CarDetailsPage from "./car/CarDetailsPage";
 
 class AutorepairApp extends Component {
   render() {
@@ -62,6 +63,20 @@ class AutorepairApp extends Component {
             <Route
               path="/masters/master/:masterId"
               render={props => <MasterDetailsPage {...props} />}
+            />
+            <Route
+              exact
+              path="/master/:parentId/cars"
+              render={props => <CarTable {...props} />}
+            />
+            <Route
+              exact
+              path="/customer/:parentId/cars"
+              render={props => <CarTable {...props} />}
+            />
+            <Route
+              path="/cars/car/:carId"
+              render={props => <CarDetailsPage {...props} />}
             />
           </Switch>
         </div>
