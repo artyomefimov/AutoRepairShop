@@ -66,16 +66,16 @@ class AutorepairApp extends Component {
             />
             <Route
               exact
-              path="/master/:parentId/cars"
+              path="/workshop/:workshopId/master/:parentId/cars"
               render={props => <CarTable {...props} />}
             />
             <Route
               exact
-              path="/customer/:parentId/cars"
+              path="/workshop/:workshopId/customer/:parentId/cars"
               render={props => <CarTable {...props} />}
             />
             <Route
-              path="/cars/car/:carId"
+              path="/workshop/:workshopId/cars/car/:carId"
               render={props => <CarDetailsPage {...props} />}
             />
           </Switch>

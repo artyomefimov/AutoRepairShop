@@ -53,9 +53,9 @@ class CustomerTable extends Component {
     this.props.history.push(`/customers/customer/${customerId}`);
   }
 
-  openCarsByCustomerId(customerId, name) {
+  openCarsByCustomerId(customerId, name, workshopId) {
     this.props.history.push({
-      pathname: `/customer/${customerId}/cars`,
+      pathname: `/workshop/${workshopId}/customer/${customerId}/cars`,
       search: `?customer=${name}`
     });
   }

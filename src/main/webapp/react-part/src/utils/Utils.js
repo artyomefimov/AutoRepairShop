@@ -80,6 +80,22 @@ export function resolveParentObjectType(url) {
   return parts[1];
 }
 
+export function resolveCarParentObjectName(parentObjectName, url) {
+  var parentType = resolveCarParentObjectType(url)
+  var type = ""
+  if (parentType === "customer") {
+    type = " клиента "
+  } else if (parentType === "master") {
+    type = " мастера "
+  }
+  return ` ${type}"${decodeURI(parentObjectName.substring(parentObjectName.indexOf('=') + 1, parentObjectName.length))}"`;
+}
+
+export function resolveCarParentObjectType(url) {
+  var parts = url.split('/');
+  return parts[3];
+}
+
 export function resolvePreviousLocation(locationUrl, url) {
   var type = locationUrl.substring(locationUrl.indexOf('?') + 1, locationUrl.indexOf('='));
   var id = locationUrl.substring(locationUrl.indexOf('=') + 1, locationUrl.length);

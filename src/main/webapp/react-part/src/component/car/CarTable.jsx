@@ -12,10 +12,10 @@ class CarTable extends Component {
         super(props);
     
         this.state = {
-          parentName: Utils.resolveParentObjectTypeAndName(this.props.location.search, this.props.match.url),
+          parentName: Utils.resolveCarParentObjectName(this.props.location.search, this.props.match.url),
           parentId: this.props.match.params.parentId,
-          parentType: Utils.resolveParentObjectType(this.props.match.url),
-          //previousLocation: Utils.resolvePreviousLocation(this.props.location.previousLocation, this.props.match.url),
+          workshopId: this.props.match.params.workshopId,
+          parentType: Utils.resolveCarParentObjectType(this.props.match.url),
           objects: [],
           message: null
         };
@@ -56,16 +56,16 @@ class CarTable extends Component {
             .catch(e => this.setState({ message: e.message }));
       }
     
-      openCarDetails(carId) {
-        this.props.history.push(`/cars/car/${carId}`);
+      openCarDetails(carId, workshopId) {
+        this.props.history.push(`/workshop/${workshopId}/cars/car/${carId}`);
       }
     
-      createCar() {
-        this.props.history.push(`/cars/car/-1`);
+      createCar(workshopId) {
+        this.props.history.push(`/workshop/${workshopId}/cars/car/-1`);
       }
     
       goBack() {
-        this.props.history.push("/")
+        this.props.history.goBack()
       }
     
       render() {
@@ -103,7 +103,7 @@ class CarTable extends Component {
                 </table>
                 <button
                   className="btn btn-success"
-                  onClick={() => this.createCar()}
+                  onClick={() => this.createCar(this.state.workshopId)}
                 >
                   Добавить
                 </button>

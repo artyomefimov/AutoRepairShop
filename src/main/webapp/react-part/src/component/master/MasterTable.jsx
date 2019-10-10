@@ -60,10 +60,9 @@ class MasterTable extends Component {
     this.props.history.push(`/masters/master/${masterId}`);
   }
 
-  openCarsByMasterId(masterId, name) {
+  openCarsByMasterId(masterId, name, workshopId) {
     this.props.history.push({
-      pathname: `/master/${masterId}/cars`,
-      // previousLocation: `?${this.state.parentType}=${this.state.parentId}`,
+      pathname: `/workshop/${workshopId}/master/${masterId}/cars`,
       search: `?master=${name}`
     });
   }

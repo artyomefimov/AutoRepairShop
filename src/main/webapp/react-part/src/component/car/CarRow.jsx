@@ -12,8 +12,8 @@ class CarRow extends Component {
         this.props.onDeleteClicked(carId);
       }
     
-      openCarDetails(carId) {
-        this.props.onOpenCarDetailsClicked(carId);
+      openCarDetails(carId, workshopId) {
+        this.props.onOpenCarDetailsClicked(carId, workshopId);
       }
     
       render() {
@@ -40,7 +40,7 @@ class CarRow extends Component {
             <td>
               <button
                 className="btn btn-success"
-                onClick={() => this.openCarDetails(object.carId)}
+                onClick={() => this.openCarDetails(object.carId, object.master.workshop.workshopId)}
               >
                 Изменить
               </button>
