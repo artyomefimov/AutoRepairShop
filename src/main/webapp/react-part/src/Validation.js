@@ -1,5 +1,7 @@
 import * as Yup from "yup";
 
+var moment = require('moment');
+
 export const workshopSchema = Yup.object().shape({
   inn: Yup.number()
     .required("Введите ИНН мастерской!")
@@ -17,7 +19,11 @@ export const workshopSchema = Yup.object().shape({
     .max(60, "Адрес мастерской должен иметь максимум 60 символов!")
     .required("Введите адрес мастерской!"),
   openHours: Yup.string().required("Введите время открытия!"),
-  closeHours: Yup.string().required("Введите время закрытия!"),
+  closeHours: Yup.string().required("Введите время закрытия!")
+  .test("isGreater", "Время закрытия должно быть позднее времени открытия!", function(value) {
+    const { openHours } = this.parent;
+    return moment(value, "HH:mm").isAfter(moment(openHours, "HH:mm"));
+  }),
   ownerName: Yup.string()
     .trim()
     .max(60, "Имя владельца мастерской должно иметь максимум 60 символов!")
