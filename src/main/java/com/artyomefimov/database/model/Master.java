@@ -33,7 +33,7 @@ public class Master {
     private Workshop workshop;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "carId", cascade = CascadeType.ALL) // todo rethink
+    @OneToMany(mappedBy = "carId", cascade = CascadeType.REMOVE)
     private Set<Car> cars = new HashSet<>();
 
     public Master() {

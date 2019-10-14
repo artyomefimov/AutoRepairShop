@@ -31,7 +31,7 @@ public class Car {
     private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "master_id", nullable = false)
+    @JoinColumn(name = "master_id")
     private Master master;
 
     public Car() {

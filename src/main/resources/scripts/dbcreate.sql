@@ -34,9 +34,9 @@ alter table workshop owner to postgres;
 
 create table master
 (
-  master_passport_num integer not null,
+  master_passport_num bigint not null,
   name varchar(60),
-  phone_num integer,
+  phone_num varchar(10),
   level_id bigint
     constraint level_id_fk
       references level,
@@ -55,9 +55,9 @@ create unique index master_phone_num_uindex
 
 create table customer
 (
-  customer_passport_num integer not null,
+  customer_passport_num bigint not null,
   name varchar(60),
-  phone_num integer,
+  phone_num varchar(10),
   address varchar(60),
   birth_date date,
   workshop_id bigint
@@ -84,7 +84,8 @@ create table car
       references customer,
   master_id bigint
     constraint master_id_fk
-      references master,
+      references master
+      on delete set null,
   crash_type varchar(60),
   car_id bigint not null
     constraint car_pk
@@ -113,3 +114,4 @@ create unique index user_login_uindex
 
 create unique index user_password_uindex
   on "user" (password);
+

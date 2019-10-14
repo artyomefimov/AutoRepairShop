@@ -40,7 +40,7 @@ class CarRow extends Component {
             <td>
               <button
                 className="btn btn-success"
-                onClick={() => this.openCarDetails(object.carId, object.master.workshop.workshopId)}
+                onClick={() => this.openCarDetails(object.carId, object.customer.workshop.workshopId)}
               >
                 Изменить
               </button>
