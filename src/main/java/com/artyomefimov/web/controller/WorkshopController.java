@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@RequestMapping(value = "/api/workshops")
 public class WorkshopController {
     private WorkshopRepository workshopRepository;
 
@@ -23,26 +24,26 @@ public class WorkshopController {
         this.workshopRepository = workshopRepository;
     }
 
-    @GetMapping(value = "/workshops", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Workshop>> getAllWorkshops() {
         return new ResponseEntity<>(workshopRepository.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(
-            value = "/workshops/workshop",
+            value = "/workshop",
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Workshop> createWorkshop(@RequestBody @Valid Workshop workshop) {
         return new ResponseEntity<>(workshopRepository.save(workshop), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/workshops/workshop/{workshopId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "/workshop/{workshopId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Workshop> updateWorkshop(@PathVariable Long workshopId,
                                                    @RequestBody @Valid Workshop workshop) {
         return new ResponseEntity<>(workshopRepository.save(workshop), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/workshops/workshop/{workshopId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/workshop/{workshopId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Workshop> getWorkshop(@PathVariable Long workshopId) {
         Optional<Workshop> workshop = workshopRepository.findById(workshopId);
         return workshop.
@@ -50,7 +51,7 @@ public class WorkshopController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping(value = "/workshops/workshop/{workshopId}")
+    @DeleteMapping(value = "/workshop/{workshopId}")
     public ResponseEntity<Void> deleteWorkshop(@PathVariable Long workshopId) {
         try {
             workshopRepository.deleteById(workshopId);
