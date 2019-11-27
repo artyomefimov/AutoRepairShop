@@ -33,7 +33,9 @@ class LevelRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openMastersByLevelId(object.levelId, object.name)}
+            onClick={() =>
+              this.openMastersByLevelId(object.levelId, object.name)
+            }
           >
             Мастера
           </button>

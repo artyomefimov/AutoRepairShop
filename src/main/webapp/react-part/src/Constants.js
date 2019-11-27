@@ -1,3 +1,8 @@
+//spring url
+export const AUTOREPAIR_API_URL = 'http://localhost:8080'
+
+export const UNAUTHORIZED = 401;
+
 // page names
 export const workshopListPageName = "Мастерские";
 export const workshopDetailPageName = "Редактировать мастерскую";

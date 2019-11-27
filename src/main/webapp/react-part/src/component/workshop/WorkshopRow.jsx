@@ -53,7 +53,9 @@ class WorkshopRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openMastersByWorkshopId(object.workshopId, object.name)}
+            onClick={() =>
+              this.openMastersByWorkshopId(object.workshopId, object.name)
+            }
           >
             Мастера
           </button>
@@ -61,7 +63,9 @@ class WorkshopRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openCustomersByWorkshopId(object.workshopId, object.name)}
+            onClick={() =>
+              this.openCustomersByWorkshopId(object.workshopId, object.name)
+            }
           >
             Клиенты
           </button>

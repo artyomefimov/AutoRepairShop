@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as Utils from "../../utils/Utils"
+import * as Utils from "../../utils/Utils";
 
 class CustomerRow extends Component {
   constructor(props) {
@@ -25,8 +25,10 @@ class CustomerRow extends Component {
   render() {
     let object = this.props.object;
     let key = 0;
-    let {series, num} = Utils.splitPassportNumOnSeriesAndNum(object.customerPassportNum)
-    let birthDate = Utils.getDayMonthAndYearFromDateAsLong(object.birthDate)
+    let { series, num } = Utils.splitPassportNumOnSeriesAndNum(
+      object.customerPassportNum
+    );
+    let birthDate = Utils.getDayMonthAndYearFromDateAsLong(object.birthDate);
 
     return (
       <tr className="top-margin" key={object.customerId}>
@@ -48,7 +50,13 @@ class CustomerRow extends Component {
         <td>
           <button
             className="btn btn-info"
-            onClick={() => this.openCarsByCustomerId(object.customerId, object.name, object.workshop.workshopId)}
+            onClick={() =>
+              this.openCarsByCustomerId(
+                object.customerId,
+                object.name,
+                object.workshop.workshopId
+              )
+            }
           >
             Автомобили
           </button>

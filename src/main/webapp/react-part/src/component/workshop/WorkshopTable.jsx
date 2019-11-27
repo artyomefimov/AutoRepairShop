@@ -4,6 +4,7 @@ import AutorepairService from "../../service/AutorepairService";
 import PageName from "../PageName";
 import SuccessMessage from "../message/SuccessMessage";
 import * as Constants from "../../Constants";
+import AuthenticationService from "../../service/AuthenticationService";
 
 class WorkshopTable extends Component {
   constructor(props) {
@@ -31,7 +32,13 @@ class WorkshopTable extends Component {
       .then(response => {
         this.setState({ objects: response.data });
       })
-      .catch(e => this.setState({ message: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   deleteWorkshop(id) {
@@ -41,7 +48,13 @@ class WorkshopTable extends Component {
           this.setState({ message: "Автомастерская успешно удалена!" });
           this.requestWorkshops();
         })
-        .catch(e => this.setState({ message: e.message }));
+        .catch(e => {
+          this.setState({ message: e.message });
+          AuthenticationService.redirectToLoginIfUnauthorized(
+            e.response.status,
+            this.props.history
+          );
+        });
   }
 
   openWorkshopDetails(id) {

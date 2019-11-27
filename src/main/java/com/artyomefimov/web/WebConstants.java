@@ -1,6 +1,6 @@
 package com.artyomefimov.web;
 
 public interface WebConstants {
-    String ADMIN = "admin";
+    String ADMIN = "ADMIN";
     String USER = "user";
 }

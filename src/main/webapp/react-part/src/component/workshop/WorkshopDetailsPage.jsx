@@ -5,7 +5,8 @@ import AutorepairService from "../../service/AutorepairService";
 import { Formik, Field, ErrorMessage } from "formik";
 import ErrorMessageBlock from "../message/ErrorMessageBlock";
 import BackButton from "../BackButton";
-import * as Validation from "../../Validation"
+import * as Validation from "../../Validation";
+import AuthenticationService from "../../service/AuthenticationService";
 
 class WorkshopDetailsPage extends Component {
   constructor(props) {
@@ -35,7 +36,13 @@ class WorkshopDetailsPage extends Component {
       .then(response => {
         this.setState({ details: response.data });
       })
-      .catch(e => this.setState({ errorMessage: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   goBack() {
@@ -183,7 +190,7 @@ class WorkshopDetailsPage extends Component {
             </form>
           )}
         />
-        <BackButton goBackAction={this.goBack}/>
+        <BackButton goBackAction={this.goBack} />
       </div>
     );
   }

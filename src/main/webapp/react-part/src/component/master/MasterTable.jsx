@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import AutorepairService from "../../service/AutorepairService";
+import AuthenticationService from "../../service/AuthenticationService";
 import PageName from "../PageName";
 import SuccessMessage from "../message/SuccessMessage";
 import * as Constants from "../../Constants";
@@ -12,7 +13,10 @@ class MasterTable extends Component {
     super(props);
 
     this.state = {
-      parentName: Utils.resolveParentObjectTypeAndName(this.props.location.search, this.props.match.url),
+      parentName: Utils.resolveParentObjectTypeAndName(
+        this.props.location.search,
+        this.props.match.url
+      ),
       parentId: this.props.match.params.parentId,
       parentType: Utils.resolveParentObjectType(this.props.match.url),
       objects: [],
@@ -36,13 +40,26 @@ class MasterTable extends Component {
         .then(response => {
           this.setState({ objects: response.data });
         })
-        .catch(e => this.setState({ message: e.message }));
+        .catch(e => {
+          AuthenticationService.redirectToLoginIfUnauthorized(
+            e.response.status,
+            this.props.history,
+            this.props.location
+          );
+          this.setState({ message: e.message });
+        });
     } else {
       AutorepairService.getMastersByLevelId(parentId)
         .then(response => {
           this.setState({ objects: response.data });
         })
-        .catch(e => this.setState({ message: e.message }));
+        .catch(e => {
+          AuthenticationService.redirectToLoginIfUnauthorized(
+            e.response.status,
+            this.props.history
+          );
+          this.setState({ message: e.message });
+        });
     }
   }
 
@@ -53,7 +70,13 @@ class MasterTable extends Component {
           this.setState({ message: "Мастер успешно удален!" });
           this.requestMastersByParentId(this.state.parentId);
         })
-        .catch(e => this.setState({ message: e.message }));
+        .catch(e => {
+          this.setState({ message: e.message });
+          AuthenticationService.redirectToLoginIfUnauthorized(
+            e.response.status,
+            this.props.history
+          );
+        });
   }
 
   openMasterDetails(masterId) {

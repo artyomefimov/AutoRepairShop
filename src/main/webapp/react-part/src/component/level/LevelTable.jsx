@@ -5,6 +5,7 @@ import SuccessMessage from "../message/SuccessMessage";
 import * as Constants from "../../Constants";
 import LevelRow from "./LevelRow";
 import BackButton from "../BackButton";
+import AuthenticationService from "../../service/AuthenticationService";
 
 class LevelTable extends Component {
   constructor(props) {
@@ -31,7 +32,13 @@ class LevelTable extends Component {
       .then(response => {
         this.setState({ objects: response.data });
       })
-      .catch(e => this.setState({ message: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   deleteLevel(id) {
@@ -41,7 +48,13 @@ class LevelTable extends Component {
           this.setState({ message: "Квалификация успешно удалена!" });
           this.requestLevels();
         })
-        .catch(e => this.setState({ message: e.message }));
+        .catch(e => {
+          this.setState({ message: e.message });
+          AuthenticationService.redirectToLoginIfUnauthorized(
+            e.response.status,
+            this.props.history
+          );
+        });
   }
 
   openLevelDetails(id) {

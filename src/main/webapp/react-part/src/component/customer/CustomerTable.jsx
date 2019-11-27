@@ -5,7 +5,8 @@ import SuccessMessage from "../message/SuccessMessage";
 import * as Constants from "../../Constants";
 import BackButton from "../BackButton";
 import CustomerRow from "./CustomerRow";
-import * as Utils from "../../utils/Utils"
+import * as Utils from "../../utils/Utils";
+import AuthenticationService from "../../service/AuthenticationService";
 
 class CustomerTable extends Component {
   constructor(props) {
@@ -36,7 +37,13 @@ class CustomerTable extends Component {
       .then(response => {
         this.setState({ objects: response.data });
       })
-      .catch(e => this.setState({ message: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   deleteCustomer(customerId) {
@@ -46,7 +53,13 @@ class CustomerTable extends Component {
           this.setState({ message: "Клиент успешно удален!" });
           this.requestCustomersByWorkshopId(this.state.workshopId);
         })
-        .catch(e => this.setState({ message: e.message }));
+        .catch(e => {
+          this.setState({ message: e.message });
+          AuthenticationService.redirectToLoginIfUnauthorized(
+            e.response.status,
+            this.props.history
+          );
+        });
   }
 
   openCustomerDetails(customerId) {

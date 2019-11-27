@@ -10,6 +10,7 @@ import MasterTable from "./master/MasterTable";
 import MasterDetailsPage from "./master/MasterDetailsPage";
 import CarTable from "./car/CarTable";
 import CarDetailsPage from "./car/CarDetailsPage";
+import LoginComponent from "./LoginComponent";
 
 class AutorepairApp extends Component {
   render() {
@@ -21,7 +22,12 @@ class AutorepairApp extends Component {
             <Route
               exact
               path="/"
-              render={props => <WorkshopTable {...props} />}
+              render={props => <LoginComponent {...props} />}
+            />
+            <Route
+              exact
+              path="/login"
+              render={props => <LoginComponent {...props} />}
             />
             <Route
               exact

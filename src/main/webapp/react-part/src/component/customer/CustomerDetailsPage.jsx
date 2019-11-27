@@ -8,6 +8,7 @@ import BackButton from "../BackButton";
 import * as Validation from "../../Validation";
 import * as Utils from "../../utils/Utils";
 import { Select } from "antd";
+import AuthenticationService from "../../service/AuthenticationService";
 
 class CustomerDetailsPage extends Component {
   constructor(props) {
@@ -39,7 +40,13 @@ class CustomerDetailsPage extends Component {
       .then(response => {
         this.setState({ workshops: response.data });
       })
-      .catch(e => this.setState({ errorMessage: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   requestCustomerDetails(id) {
@@ -47,7 +54,13 @@ class CustomerDetailsPage extends Component {
       .then(response => {
         this.setState({ details: response.data });
       })
-      .catch(e => this.setState({ errorMessage: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   goBack() {

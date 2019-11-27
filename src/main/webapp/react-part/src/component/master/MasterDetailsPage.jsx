@@ -8,6 +8,7 @@ import BackButton from "../BackButton";
 import * as Validation from "../../Validation";
 import * as Utils from "../../utils/Utils";
 import { Select } from "antd";
+import AuthenticationService from "../../service/AuthenticationService";
 
 class MasterDetailsPage extends Component {
   constructor(props) {
@@ -42,7 +43,13 @@ class MasterDetailsPage extends Component {
       .then(response => {
         this.setState({ workshops: response.data });
       })
-      .catch(e => this.setState({ errorMessage: e.message }));
+      .catch(e => {
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+        this.setState({ errorMessage: e.message });
+      });
   }
 
   requestAllLevels() {
@@ -50,7 +57,13 @@ class MasterDetailsPage extends Component {
       .then(response => {
         this.setState({ levels: response.data });
       })
-      .catch(e => this.setState({ errorMessage: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   requestMasterDetails(id) {
@@ -58,7 +71,13 @@ class MasterDetailsPage extends Component {
       .then(response => {
         this.setState({ details: response.data });
       })
-      .catch(e => this.setState({ errorMessage: e.message }));
+      .catch(e => {
+        this.setState({ message: e.message });
+        AuthenticationService.redirectToLoginIfUnauthorized(
+          e.response.status,
+          this.props.history
+        );
+      });
   }
 
   goBack() {

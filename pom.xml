@@ -80,7 +80,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!-- локально ставит node и npm, ставит зависимости, билдит приложение -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -106,6 +105,9 @@
                         <goals>
                             <goal>npm</goal>
                         </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
                     </execution>
 
                     <execution>
@@ -121,23 +123,35 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
+                <!--<artifactId>maven-resources-plugin</artifactId>-->
+                <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>Copy frontend build to target</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
+                        <phase>generate-resources</phase>
                         <configuration>
-                            <outputDirectory>${project.basedir}/target/classes/static</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/webapp/react-part/build</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
+                            <target>
+                                <copy todir="${project.build.directory}/classes/public">
+                                    <fileset dir="src/main/webapp/react-part/build"/>
+                                </copy>
+                            </target>
                         </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <!--<phase>process-resources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>copy-resources</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<outputDirectory>${project.basedir}/target/classes/public</outputDirectory>-->
+                            <!--<resources>-->
+                                <!--<resource>-->
+                                    <!--<directory>src/main/webapp/react-part/build</directory>-->
+                                    <!--<filtering>true</filtering>-->
+                                <!--</resource>-->
+                            <!--</resources>-->
+                        <!--</configuration>-->
                     </execution>
                 </executions>
             </plugin>

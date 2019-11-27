@@ -3,7 +3,7 @@ package com.artyomefimov.database.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
@@ -18,12 +18,12 @@ public class User {
     private String password;
 
     @Column(name = "role")
-    private int role;
+    private String role;
 
     public User() {
     }
 
-    public User(String login, String password, int role) {
+    public User(String login, String password, String role) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -53,11 +53,11 @@ public class User {
         this.password = password;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }
