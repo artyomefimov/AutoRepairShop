@@ -14,8 +14,6 @@ import java.io.IOException;
 
 public class BasicAuthFilter extends OncePerRequestFilter {
     @Autowired
-    private UserService userService;
-    @Autowired
     private TokenProvider tokenProvider;
 
     @Override

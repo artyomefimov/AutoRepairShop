@@ -7,11 +7,11 @@ export const USER_NAME_SESSION_ATTRIBUTE_NAME = "authenticatedUser";
 class AuthenticationService {
   redirectToLoginIfUnauthorized(status, history, previousLocation) {
     if (Constants.UNAUTHORIZED === status) {
-      history.push({
-        pathname: "/login",
-        search: previousLocation
-      });
-      //history.push("/login");
+      // history.push({
+      //   pathname: "/login",
+      //   search: previousLocation
+      // });
+      history.push("/login");
     }
   }
 
