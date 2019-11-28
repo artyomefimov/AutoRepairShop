@@ -45,7 +45,7 @@ class LoginComponent extends Component {
         <h1>Вход</h1>
         <div className="container">
           {this.state.hasLoginFailed && (
-            <div className="alert alert-warning">Invalid Credentials</div>
+            <div className="alert alert-warning">Неверные логин или пароль!</div>
           )}
           {this.state.showSuccessMessage && <div>Login Successful</div>}
           Логин:{" "}

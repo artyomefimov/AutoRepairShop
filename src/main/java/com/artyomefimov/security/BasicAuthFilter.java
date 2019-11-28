@@ -1,6 +1,5 @@
 package com.artyomefimov.security;
 
-import com.artyomefimov.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
